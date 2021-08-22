@@ -19,15 +19,15 @@ It works without any configuration, but you find documentation as:
 
 ## Usage
 
-To check the currently opened text run:
+Check the currently opened text:
 
     :AngryReviewer
 
-Default keyboard shortcut is:
+Default keyboard shortcut:
 
     <leader>ar
 
-You can remap the shortcut (for example <space>r) as:
+You can remap the shortcut (for example to <space>r) as:
 
     nnoremap <space>r :AngryReviewer<cr>
 
