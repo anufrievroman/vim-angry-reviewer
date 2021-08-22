@@ -9,7 +9,7 @@ Use your favorite plugin manager.
 
 Using [vim-plug](https://github.com/junegunn/vim-plug):
 
-    Plug 'mhinz/vim-startify'
+    Plug 'anufrievroman/vim-angry-reviewer'
 
 It works without any configuration, but you find documentation as:
 

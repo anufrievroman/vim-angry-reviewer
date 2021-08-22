@@ -1,0 +1,28 @@
+*AngryReviewer.txt*              A Vim plugin which shows a git diff in the gutter.
+
+
+                           Vim AngryReviewer Plugin
+
+
+Author:            Anufriev Roman <https://angryreviewer.com>
+Plugin Homepage:   <https://github.com/anufrievroman/vim-angry-reviewer>
+
+Angry Reviewer plugin for vim and neovim. The plugin provides style suggestions for academic and scientific text. It works with any text, but works best with Latex files of scientific papers.
+This plugin is the offline version of the free web-service [AngryReviewer.com](https://www.angryreviewer.com)
+
+USAGE                                                              
+===============================================================================
+To check text in buffer:
+
+:AngryReviewer
+
+
+KEY MAPPING
+===============================================================================
+Default mapping is at <leader>ar
+
+You can remap it for (examples <space>r) as:
+
+nnoremap <space>r :AngryReviewer<cr>
+
+vim:tw=78:sw=2:ts=2:ft=help:norl:nowrap:
