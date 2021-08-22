@@ -3,7 +3,7 @@
 Angry Reviewer plugin for vim and neovim. The plugin provides style suggestions for academic and scientific text. It works with any text, but works best with Latex files of scientific papers.
 This plugin is the offline version of the free web-service [AngryReviewer.com](https://www.angryreviewer.com)
 
-![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screenshot.jpg)
+![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screen.jpg)
 
 ## Installation
 
