@@ -1027,6 +1027,7 @@ results = main(text)
 
 # Open results in a split
 vim.command('vsplit e')
+vim.command('set nonumber')
 vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
 vim.current.buffer.append(results)
 
