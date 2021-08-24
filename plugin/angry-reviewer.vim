@@ -1032,11 +1032,12 @@ results = main(text)
 #vim.current.buffer.append(results)
 
 # Open results in a quickfix-window TODO
-# vim.command('call setqflist([], "r")')
-# for result in results:
-#     lnum = str() # TODO
-#     qfitem = # TODO
-#     vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": '+qfitem+'}], "a")')
+vim.command('call setqflist([], "r")')  # clear qflist
+for result in results:
+    re_result = re.search('\d+', result)
+    lnum = re_result[0]
+    qfitem = result[re_result.end()+2:]
+    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
 
 # Save results to a variable
 vim_cmd_arg =  '[\'' + '\', \''.join(results).replace('"', '\"') + '\']'
@@ -1058,16 +1059,16 @@ EOF
 
 " IDEA: clear qf list and append elements individually in a loop
 " Inspired by https://stackoverflow.com/a/15276787
-call setqflist([], 'r')
-for l:item in b:AngryReviewerList
-    " echo l:item
-    " get line number
-    let l:lnum = matchstr(l:item, '\d\+', 'regex')
-    let l:qfitem = substitute(l:item, 'Line \d\+\.\s', '', '')
-    " echo l:qfitem l:lnum
-    call setqflist([{'bufnr': bufnr(''), 'lnum': l:lnum, 'text': l:qfitem}], 'a')
-    " sleep 500m
-endfor
+"call setqflist([], 'r')
+"for l:item in b:AngryReviewerList
+"    " echo l:item
+"    " get line number
+"    let l:lnum = matchstr(l:item, '\d\+', 'regex')
+"    let l:qfitem = substitute(l:item, 'Line \d\+\.\s', '', '')
+"    " echo l:qfitem l:lnum
+"    call setqflist([{'bufnr': bufnr(''), 'lnum': l:lnum, 'text': l:qfitem}], 'a')
+"    " sleep 500m
+"endfor
 copen | setlocal wrap linebreak colorcolumn=0
 
 endfunction
