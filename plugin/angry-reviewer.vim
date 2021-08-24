@@ -1031,50 +1031,27 @@ results = main(text)
 #vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
 #vim.current.buffer.append(results)
 
-# Open results in a quickfix-window TODO
+# Open results in a quickfix-window
 vim.command('call setqflist([], "r")')  # clear qflist
 for result in results:
     re_result = re.search('\d+', result)
     lnum = re_result[0]
     qfitem = result[re_result.end()+2:]
     vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
+vim.command('copen | setlocal wrap linebreak colorcolumn=0')
 
-# Save results to a variable
-vim_cmd_arg =  '[\'' + '\', \''.join(results).replace('"', '\"') + '\']'
-vim.command('let b:AngryReviewerList = ' + vim_cmd_arg)
-
-
-# BJC94 : Put `results` into quickfix-window
-# vim.command('call setqflist([], \' \', {\'lines\': AngryReviewerList})')
-# vim.command('copen | setlocal wrap linebreak colorcolumn=0')
-
-#vim.command('echo AngryReviewerList')
-# vim.command('call setqflist([], \' \', {\'lines\': AngryReviewerList})')
-# vim.command('copen | setlocal wrap linebreak colorcolumn=0')
+# Save results to a variable (Old snippet, might be useful later?)
+# vim_cmd_arg =  '[\'' + '\', \''.join(results).replace('"', '\"') + '\']'
+# vim.command('let b:AngryReviewerList = ' + vim_cmd_arg)
 
 EOF
 
-" return b:AngryReviewerList
-
-
-" IDEA: clear qf list and append elements individually in a loop
-" Inspired by https://stackoverflow.com/a/15276787
-"call setqflist([], 'r')
-"for l:item in b:AngryReviewerList
-"    " echo l:item
-"    " get line number
-"    let l:lnum = matchstr(l:item, '\d\+', 'regex')
-"    let l:qfitem = substitute(l:item, 'Line \d\+\.\s', '', '')
-"    " echo l:qfitem l:lnum
-"    call setqflist([{'bufnr': bufnr(''), 'lnum': l:lnum, 'text': l:qfitem}], 'a')
-"    " sleep 500m
-"endfor
-copen | setlocal wrap linebreak colorcolumn=0
 
 endfunction
 
 command! -nargs=0 AngryReviewer call AngryReviewer()
-nnoremap <leader>ar :AngryReviewer<cr>
+" BJC94: See updated Readme, better to let users set their own mappings
+" nnoremap <leader>ar :AngryReviewer<cr>
 
 syntax match potionComment "SUGGESTIONS FOR YOUR TEXT:"
 highlight link potionComment Comment
