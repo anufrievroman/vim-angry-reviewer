@@ -1063,7 +1063,7 @@ def negatives(line, index):
     return mistakes
 
 
-def main(text, english):
+def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results to the web app'''
 
     # General checks
