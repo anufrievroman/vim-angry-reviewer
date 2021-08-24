@@ -1026,10 +1026,16 @@ text = list(vim.current.buffer)
 results = main(text)
 
 # Open results in a split
-vim.command('vsplit e')
-vim.command('set nonumber')
-vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
-vim.current.buffer.append(results)
+#vim.command('vsplit e')
+#vim.command('set nonumber')
+#vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
+#vim.current.buffer.append(results)
+
+# BJC94 : Put `results` into quickfix-window
+vim_cmd_arg =  '[\'' + '\', \''.join(results).replace('"', '\"') + '\']'
+vim.command('let AngryReviewerList = ' + vim_cmd_arg)
+vim.command('call setqflist([], \' \', {\'lines\': AngryReviewerList})')
+vim.command('copen | setlocal wrap linebreak colorcolumn=0')
 
 EOF
 
