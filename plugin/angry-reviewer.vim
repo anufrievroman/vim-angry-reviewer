@@ -1026,6 +1026,7 @@ text = list(vim.current.buffer)
 results = main(text)
 
 # Open results in a split
+# BJC94: This should be removed if it's decided to stick with qf-list approach
 #vim.command('vsplit e')
 #vim.command('set nonumber')
 #vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
@@ -1034,15 +1035,18 @@ results = main(text)
 # Open results in a quickfix-window
 vim.command('call setqflist([], "r")')  # clear qflist
 for result in results:
-    re_result = re.search('\d+', result)
-    lnum = re_result[0]
-    qfitem = result[re_result.end()+2:]
-    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
-vim.command('copen | setlocal wrap linebreak colorcolumn=0')
+    lnum = '0'
+    qfitem = result
 
-# Save results to a variable (Old snippet, might be useful later?)
-# vim_cmd_arg =  '[\'' + '\', \''.join(results).replace('"', '\"') + '\']'
-# vim.command('let b:AngryReviewerList = ' + vim_cmd_arg)
+    result_has_lnum = re.search('Line .', result)
+    if result_has_lnum:
+        lnum_search = re.search('\d+', result)
+        lnum = lnum_search[0]
+        qfitem = result[lnum_search.end()+2:]  # Clip text following Line xx.\s
+
+    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
+
+vim.command('copen | setlocal nonu nornu wrap linebreak colorcolumn=0')
 
 EOF
 
@@ -1053,5 +1057,6 @@ command! -nargs=0 AngryReviewer call AngryReviewer()
 " BJC94: See updated Readme, better to let users set their own mappings
 " nnoremap <leader>ar :AngryReviewer<cr>
 
+" BJC94: This should be removed if it's decided to stick with qf-list approach
 syntax match potionComment "SUGGESTIONS FOR YOUR TEXT:"
 highlight link potionComment Comment
