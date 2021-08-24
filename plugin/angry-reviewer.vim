@@ -15,20 +15,21 @@ import vim
 import re
 from datetime import date
 
-elements_list = set(['Al', 'Si', 'Cr', 'Ga', 'Ti', 'InP', 'GaAs', 'SiC', 'Cu',
+elements_list = set(['Al', 'Si', 'Cr', 'Ga', 'Ti', 'GaAs', 'SiC', 'Cu', 'Ge',
     'Li', 'Ne', 'Na', 'Cl', 'Ar', 'Au', 'VO2', 'Sc', 'Fe', 'Nb', 'Ni', 'SiGe',
     'Sr', 'Zr', 'Ag', 'Ta', 'Pt', 'Hg', 'U', 'O2', 'H2O', 'Sn', 'Sb',
     'SiN', 'SiO', 'H', 'N', 'GaN', 'InP', 'InAs', 'GaP', 'AlP', 'He',
-    'BAs', 'BN', 'AlN'])
+    'BAs', 'BN', 'AlN', 'TiNiSn', 'AlGaAs', ])
 
 units_list = set(["m.", "m ", "mm", "um", "nm", "km", "cm", "W", "V", "K", "s ",
     "s.", "ps", "us ", "Pa", "min", "h.", "h,", "h ", "Hz", "GHz", "THz", "MHz",
-    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', 'MPa'])
+    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', 'MPa', 'GPa'])
 
-exceptions_list = ['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
+exceptions_list = set(['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
     'INTRODUCTION', 'LIMMS', 'DNA', 'RNA', 'IIS', 'CREST', 'PRESTO', 'PNAS',
     'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM', 'AIDS', 'AC', 'DC',
-    'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA']
+    'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA', 'BibTeX', 'APS', 'InA',
+    'LED', 'OLED',])
 
 overused_intro_dictionary = {
     'However': 'But or Yet',
@@ -399,7 +400,7 @@ bad_patterns_dictionary = {
     'would like to': 'Consider removing "would like to" and writing the next verb directly, e.g. "We (would like to) emphasize that"',
     'At the temperature of': 'Consider shortening "At the temperature of" to just value, e.g. "At 4 K".',
     'At temperature of': 'Consider shortening "At temperature of" to just value, e.g. "At 4 K".',
-    'at the temperature of': 'Consider shortening "at the temperature of" to just value, e.g. "At 4 K".',
+    'at the temperature of': 'Consider shortening "at the temperature of" to just value, e.g. "at 4 K".',
     'at temperature of': 'Consider shortening "at temperature of" to just value, e.g. "at 4 K".',
     'along the lines of': 'Consider replacing "along the lines of" with shorter "like".',
     'majority of': 'Consider replacing "majority of" with shorter "most".',
@@ -479,7 +480,7 @@ bad_patterns_dictionary = {
     'This proves': 'It might be unclear what "This" points to if the previous phrase was complicated. Rewrite with a more specific subject, e.g. "This experiment proves".',
     'This is': 'It might be unclear what "This is" points to if the previous phrase was complicated. Rewrite with a more specific subject, e.g. "This result is".',
     'This leads': 'It might be unclear what "This leads" points to if the previous phrase was complicated. Rewrite with a more specific subject, e.g. "This result leads".',
-    'et al ': 'Needs a period after "et al", i.e. "et al.".',
+    'et al ': 'Needs a period after "et al". For example "Alferov et al. showed".',
     ' while': 'It might be better to replace "while" with "whereas", unless it really happens simultaneously.',
     ', while': 'Simple constructions like "A is white, while B is red" can be simplified as "A is white; B is red."',
     'e.g. ': 'In American English "e.g." should be followed by a comma.',
@@ -496,9 +497,9 @@ bad_patterns_dictionary = {
     'larger then': 'Probably "then" should be changed to "than" if this is a comparison.',
     'better then': 'Probably "then" should be changed to "than" if this is a comparison.',
     'micrometer': 'To avoid confusion with a device called "micrometer", you can use "micron" for units.',
-    ' data is': 'The word "data" is plural, double-check sure if "data is" is correct.',
-    ' data has': 'The word "data" is plural, double-check sure if "data has" is correct.',
-    ' data shows': 'The word "data" is plural, double-check sure if "data shows" is correct.',
+    ' data is': 'The word "data" is plural, double-check if "data is" is correct.',
+    ' data has': 'The word "data" is plural, double-check if "data has" is correct.',
+    ' data shows': 'The word "data" is plural, double-check if "data shows" is correct.',
     ' 0 ': 'Simple numbers 0-10 are better to be spelled out, e.g. "five samples", "above zero", "equal to one".',
     'and/or': 'Try to say it without "and/or". Often, just "and" or "or" is enough.',
     'or/and': 'Try to say it without "or/end". Often, just "and" or "or" is enough.',
@@ -699,7 +700,7 @@ bad_patterns_dictionary = {
     '$\mu$m': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}m" for better looking letter mu.',
     '$\mu$s': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}s" for better looking letter mu.',
     '$\mu$g': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}g" for better looking letter mu.',
-    '$\mu$TDTR': 'You may replace LaTeX expression "$\mu$TDTR" with "{\`textmu}TDTR" for better looking letter mu.',
+    '$\mu$TDTR': 'You may replace LaTeX expression "$\mu$TDTR" with "{\\textmu}TDTR" for better looking letter mu.',
     '\hslash': 'If by "\hslash" you mean the reduced Plack constant, use "\hbar".',
     '+/-': 'If you are in LaTeX, use "\pm" instead of "+/-". Otherwise, find proper plus-minus symbol.',
     ' $^\circ$C': 'Degrees Celsius should not be separated from the number with a space',
@@ -848,29 +849,40 @@ def numbers_next_to_units(line, index):
     mistakes = []
     for number in range(9):
         for unit in units_list:
-            if (str(number)+unit in line) and (str(number)+unit+"}" not in line):
-                mistakes.append(f'Line {index + 1}. Put a space between the number {number} and the unit {unit}')
+            if (f'{number}{unit} ' in line) or (f'{number}{unit}.' in line) or (f'{number}{unit},' in line):
+                mistakes.append(f'Line {index + 1}. Put a space between the digit {number} and the unit {unit}')
         if (str(number)+' %' in line) or (str(number)+' \%' in line):
-            mistakes.append(f'Line {index + 1}. Per cent signs "%" should follow numbers without a space, i.e. {number}%')
+            mistakes.append(f'Line {index + 1}. Percent sign "%" should follow numberals without a space, i.e. {number}%')
     return mistakes
 
 
 def elements(text):
     '''Check how many times chemical elements occur in the text'''
     mistakes = []
-    entire_text = ' '.join(text)
+    entire_text = unite_valid_lines(text)
+    found_elements = []
     for element in elements_list:
         occurance = entire_text.count(" "+element+" ")
-        if occurance > 0 and occurance < 5:
-            mistakes.append(f'The element {element} occurs only {number_to_words(occurance)}. Consider using its full name instead of the symbol.')
+        if 0 < occurance < 5:
+            found_elements.append(element)
+
+    # Advise is constructed depending on how many elements were found
+    if len(found_elements) == 1:
+        mistakes.append(f'The symbol {found_elements[0]} occurs only a few times. Since most readers do not know how to read all chemical symbols, just write actual name of the element each time. For example "silicon wafer".')
+    if len(found_elements) > 1:
+        output_string = found_elements[0]
+        found_elements[-1] = ' and ' + found_elements[-1]
+        for name in found_elements[1:]:
+            output_string += f', {name}'
+        mistakes.append(f'The symbols {output_string} occur only a few times each. Since most readers do not know how to read all chemical symbols, just write actual names of the elements each time. For example "silicon wafer".')
     return mistakes
 
 
 def abbreviations(text):
     '''Check how many times abbreviations occur in the text'''
     # Find abbreviations as ALLCAPS or ALLCaPs strings and cut "s" at the ends
-    entire_text = ' '.join(text)
-    all_abbreviations = re.findall(r"\b(?:[A-Z][a-z]*){2,}", entire_text)
+    entire_text = unite_valid_lines(text)
+    all_abbreviations = re.findall(r"\b(?:[A-Z][a-z]?){2,}", entire_text)
     filtered_abbreviations = []
     for abbreviation in all_abbreviations:
         trimmed_abbreviation = abbreviation[:-1] if abbreviation[-1] == 's' else abbreviation
@@ -878,11 +890,22 @@ def abbreviations(text):
     mistakes = []
 
     # Check how often each abbreviation occurs and comment if less than five
+    found_abbreviations = []
     for unique_abbreviation in set(filtered_abbreviations):
         if (unique_abbreviation not in elements_list) and (unique_abbreviation not in exceptions_list) and (unique_abbreviation not in units_list):
             occurance = filtered_abbreviations.count(unique_abbreviation)
-            if occurance > 0 and occurance < 5:
-                mistakes.append(f'Abbreviation {unique_abbreviation} occurs only {number_to_words(occurance)}. Since abbreviations are hard to read, consider just spelling it out.')
+            if 0 < occurance < 5:
+                found_abbreviations.append(unique_abbreviation)
+
+    # Advise is constructed depending on how many abbreviations were found
+    if len(found_abbreviations) == 1:
+        mistakes.append(f'The abbreviation {found_abbreviations[0]} occurs only a few times. Since abbreviations are hard to decrypt, just spell it out each time. It is easier to read a few words than to search for meanings of abbreviations.')
+    if len(found_abbreviations) > 1:
+        output_string = found_abbreviations[0]
+        found_abbreviations[-1] = ' and ' + found_abbreviations[-1]
+        for name in found_abbreviations[1:]:
+            output_string += f', {name}'
+        mistakes.append(f'The abbreviations {output_string} occur only a few times each. Since abbreviations are hard to decrypt, just spell them out each time. It is easier to read a few words than to search for meanings of abbreviations.')
     return mistakes
 
 
@@ -913,7 +936,7 @@ def abstract_lenght(text):
     '''Find the abstract, check its length and advise if it's too long'''
     # First search for begin{abstract}. If nothing, search for abstract{
     try:
-        entire_text = ' '.join(text)
+        entire_text = unite_valid_lines(text)
         pattern = '+++'
         abstract = entire_text.replace("begin{abstract", pattern).split(pattern)
         abstract = abstract[1].replace("end{abstract", pattern).split(pattern)
@@ -949,7 +972,7 @@ def title_lenght(text):
     words = len(title.split())
     symbols = len(title)
     mistakes = []
-    if words > 15 and words > 1:
+    if 1 < words > 15:
         mistakes.append(f'Your title has {words} words or {symbols} characters. Consider making it shorter. Some journals limit the title by 15 words only.')
     return mistakes
 
@@ -957,7 +980,7 @@ def title_lenght(text):
 def references(text):
     '''Find references and check their number and age. Comment if they are too old or too many'''
     # Find all unique references in the text as cite{...}
-    entire_text = ' '.join(text)
+    entire_text = unite_valid_lines(text)
     all_citations = re.findall(r'cite\{[^\}]+}', entire_text)
     references = []
     for citation in all_citations:
@@ -997,17 +1020,18 @@ def references(text):
                 for name in each_author_splitter:
                     name = re.sub(r'\}', '', name)
                     name = re.sub(r' ', '', name)
-                    names.append(name)
+                    if name != '':
+                        names.append(name)
         selfcitations = 0
         for name in names:
-            for reference in references:
-                if name.upper() in reference.upper():
-                    selfcitations += 1
+                for reference in references:
+                    if name.upper() in reference.upper():
+                        selfcitations += 1
         selfcitation_percentage = 100*selfcitations//len(references)
-        if selfcitation_percentage > 0 and selfcitation_percentage < 20:
-            mistakes.append(f"At least {selfcitations} out of {len(references)} of your references appears to be self-citations. This is acceptable, but keep it in check.")
+        if 0 < selfcitation_percentage < 20:
+            mistakes.append(f"At least {selfcitations} out of {len(references)} references seems to be self-citations. This is acceptable, but keep it in check.")
         if selfcitation_percentage >= 20:
-            mistakes.append(f"At least {selfcitations} out of {len(references)} of your references appears to be self-citations. Consider if you need so many self references, it might not look good.")
+            mistakes.append(f"At least {selfcitations} out of {len(references)} references seems to be self-citations. Consider if you need so many self-references, it might not look good.")
     return mistakes
 
 
@@ -1025,11 +1049,11 @@ def overcitation(line, index):
 def intro_patterns(text):
     '''Check if some introduction words occur too often times'''
     mistakes = []
-    entire_text = ' '.join(text)
+    entire_text = unite_valid_lines(text)
     for word in overused_intro_dictionary:
         occurance = entire_text.count(word)
         occurance_percentage = occurance/len(entire_text.split(" "))
-        if occurance_percentage > 0.0012 and occurance_percentage < 0.002 and occurance > 1:
+        if (0.0012 < occurance_percentage < 0.002) and (occurance > 1):
             mistakes.append(f'Sentences often start with {word}. Try alternatives like {overused_intro_dictionary[word]}.')
         if occurance_percentage > 0.002 and occurance > 1:
             mistakes.append(f'Sentences start with {word} too often. Try alternatives like {overused_intro_dictionary[word]}.')
@@ -1043,6 +1067,16 @@ def line_is_valid(line):
         if line[0] != '%':
             validation = True
     return validation
+
+
+def unite_valid_lines(text):
+    '''Remove lines that are empty or a Latex comment and unite the rest'''
+    entire_text = ''
+    for line in text:
+        if len(line) > 1:
+            if line[0] != '%':
+                entire_text += line
+    return entire_text
 
 
 def redundancy(line, index):
@@ -1065,13 +1099,13 @@ def negatives(line, index):
 
 def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results to the web app'''
-
     # General checks
     results = []
     results += title_lenght(text)
     results += abstract_lenght(text)
     results += references(text)
     results += intro_patterns(text)
+    results += elements(text)
 
     # Checks for each line which is not a comment
     for index, line in enumerate(text):
@@ -1081,7 +1115,7 @@ def main(text, english='american'):
             results += in_conclusions(line, index, text)
             results += comma_after(line, index)
             results += figure_references(line, index)
-            results += start_with_numbers(line, index)
+            # results += start_with_numbers(line, index)
             results += numbers_next_to_units(line, index)
             results += british_spelling(line, index, english)
             results += overcitation(line, index)
@@ -1089,7 +1123,6 @@ def main(text, english='american'):
             results += negatives(line, index)
 
     # Additional checks
-    results += elements(text)
     results += abbreviations(text)
 
     if len(results) == 0:
