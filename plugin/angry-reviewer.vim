@@ -853,7 +853,7 @@ def british_spelling(line, index, english):
     return mistakes
 
 
-def abstract_lenght(text):
+def abstract_length(text):
     '''Find the abstract, check its length and advise if it's too long'''
     # First search for begin{abstract}. If nothing, search for abstract{
     try:
@@ -884,7 +884,7 @@ def abstract_lenght(text):
     return mistakes
 
 
-def title_lenght(text):
+def title_length(text):
     '''Find the title, check its length and advise if it's too long'''
     title = ""
     for line in text:
@@ -994,8 +994,8 @@ def main(text, english='american'):
 
     # General checks
     results = []
-    results += title_lenght(text)
-    results += abstract_lenght(text)
+    results += title_length(text)
+    results += abstract_length(text)
     results += references(text)
     results += intro_patterns(text)
 
