@@ -23,11 +23,12 @@ elements_list = set(['Al', 'Si', 'Cr', 'Ga', 'Ti', 'InP', 'GaAs', 'SiC', 'Cu',
 
 units_list = set(["m.", "m ", "mm", "um", "nm", "km", "cm", "W", "V", "K", "s ",
     "s.", "ps", "us ", "Pa", "min", "h.", "h,", "h ", "Hz", "GHz", "THz", "MHz",
-    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', ])
+    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', 'MPa'])
 
 exceptions_list = ['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
     'INTRODUCTION', 'LIMMS', 'DNA', 'RNA', 'IIS', 'CREST', 'PRESTO', 'PNAS',
-    'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM',]
+    'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM', 'AIDS', 'AC', 'DC',
+    'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA']
 
 overused_intro_dictionary = {
     'However': 'But or Yet',
@@ -211,7 +212,8 @@ bad_patterns_dictionary = {
     ' proved ': 'Phrases about "prove" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with words like "evidence", "demonstration", "confirmation" etc.',
     ' proof ': 'Phrases about "proof" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with words like "evidence", "demonstration", "confirmation" etc.',
     ' proves ': 'Phrases about "proves" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with verbs like "evidence", "demonstrate", "confirm" etc.',
-    ' never ': 'The word "never" could be considered hype or exaggeration in instances like "never shown before". Thus, it is better to avoid such statements. Consider alternatives: "rarely", "seldom", "remains unclear", "remains challenging".',
+    ' never ': 'According to Craft of Scientific Writing: "Never is a frightening word because it invites the readers to think of exceptions". Consider alternatives: "rarely", "seldom", "remains unclear", "remains challenging".',
+    'always': 'According to Craft of Scientific Writing: "Always is a frightening word because it invites the readers to think of exceptions. You should go in fear of absolutes".',
     'certainly': 'Consider if this sentence needs the word "certainly". According to The Elements of Style: "Used indiscriminately by some speakers, much as others use very, to intensify any and every statement. A mannerism of this kind, bad in speech, is even worse in writing".',
     ' fact ': 'Check if the word "fact" is actually applied to a fact. According to The Elements of Style: "Use this word only of matters of a kind capable of direct verification, not of matters of judgment."',
     'highly': 'The word "highly" rarely highly contributes to better understanding. Consider removing it or, if important quantifying it.',
@@ -245,6 +247,11 @@ bad_patterns_dictionary = {
     'attracted attention': 'Attracted attention is not necessarily a good motivation for research. Consider a stronger motivation.',
     'One of the most': 'Consider rewriting it without "One of the most". According to the Elements of Style: "There is nothing wrong in this; it is simply threadbare and forcible-feeble."',
     'one of the most': 'Consider rewriting it without "one of the most". According to the Elements of Style: "There is nothing wrong in this; it is simply threadbare and forcible-feeble."',
+
+    # Spelling out the abbreviations
+    'FORTRAN': 'Uncapitalize "FORTRAN" as "Fortran" for clearer look.',
+    'COMSOL': 'Uncapitalize "COMSOL" as "Comsol" for clearer look.',
+    'APPOLO': 'Uncapitalize "APPOLO" as "Appolo" for clearer look.',
 
     # Inconcise expressions
 
@@ -290,6 +297,7 @@ bad_patterns_dictionary = {
     'given the fact that': 'Consider replacing "given the fact that" with simple "since" or "because".',
     'Due to the fact that': 'Consider replacing "Due to the fact that" with simple "Because".',
     'due to the fact that': 'Consider replacing "due to the fact that" with simple "because".',
+    'It is interesting to note that': 'Consider removing "It is interesting to note that". According to Craft of Scientific Writing: "If the detail is not interesting, then the writer should not include it".',
     ' the fact that': 'Consider replacing "the fact that" with just "that".',
     ' PM in the afternoon': 'It is redundant to precise "in the afternoon" after "PM".',
     ' AM in the morning': 'It is redundant to precise "in the morning" after "AM".',
@@ -338,6 +346,8 @@ bad_patterns_dictionary = {
     'have the capacity for': 'Consider replacing "have the capacity for" with simple "can".',
     'has the ability to': 'Consider replacing "has the ability to" with simple "can".',
     'have the ability to': 'Consider replacing "have the ability to" with simple "can".',
+    'has the potential to': 'Consider replacing "has the potential to" with simple "can".',
+    'have the potential to': 'Consider replacing "have the potential to" with simple "can".',
     'it is possible that': 'Consider rewriting the phrase with "it is possible that" using simple "may", "might", "can", or "could".',
     'It is possible that': 'Consider rewriting the phrase with "It is possible that" using simple "may", "might", "can", or "could".',
     'there is a chance that': 'Consider rewriting the phrase with "there is a chance that" using simple "may", "might", "can", or "could".',
@@ -353,6 +363,8 @@ bad_patterns_dictionary = {
     'subsequent to': 'Consider replacing "subsequent to" with simple "after".',
     'at the same time as': 'Consider replacing "at the same time as" with a simple "as".',
     'At the same time as': 'Consider replacing "At the same time as" with a simple "As".',
+    'the question as to whether': 'Consider replacing "the question as to whether" with a simple "whether".',
+    'The question as to whether': 'Consider replacing "The question as to whether" with a simple "Whether".',
     'simultaneously with': 'Consider replacing "simultaneously with" with a simple "as".',
     'Simultaneously with': 'Consider replacing "Simultaneously with" with a simple "As".',
     'facilitate': 'Replace "facilitate" with simple "help". According to The Craft Of Scientific Writing: "Words such as facilitate are pretentious".',
@@ -378,6 +390,9 @@ bad_patterns_dictionary = {
     'in the absence': 'Consider replacing "in the absence" with "without".',
     'Because of the fact that': 'Consider replacing "Because of the fact that" with just "Because".',
     'because of the fact that': 'Consider replacing "because of the fact that" with just "because".',
+    'Owing to the fact that': 'Consider replacing "Owing to the fact that" with just "Because".',
+    'owing to the fact that': 'Consider replacing "owing to the fact that" with just "because".',
+    'in the vicinity of': 'Consider replacing "in the vicinity of" with just "near".',
     'we believe': 'Consider writing what you believe directly, without starting with "we believe".',
     'We believe': 'Consider writing what you believe directly, without starting with "We believe".',
     'I believe': 'Consider writing what you believe directly, without starting with "I believe".',
@@ -408,6 +423,7 @@ bad_patterns_dictionary = {
     'modifies': 'Consider replacing "modifies" with simpler "changes".',
     'modifications': 'Consider replacing "modifications" with simpler "changes".',
     'modification ': 'Consider replacing "modification" with simpler "change".',
+    'component': 'Consider replacing "component" with simpler "part".',
     'indication': 'Consider replacing word "indication" with simpler "sign". "Short words are best" - W. Churchill"',
     'although it is': 'Consider replacing "although it is" with shorter "albeit".',
     'although it was': 'Consider replacing "although it was" with shorter "albeit".',
@@ -421,65 +437,27 @@ bad_patterns_dictionary = {
     'Based on the assumption': 'Consider replacing "Based on the assumption" with simpler "Assuming" or just "If".',
     'have long been known to be': 'Consider replacing "have long been known to be" with simple "are".',
     'has long been known to be': 'Consider replacing "has long been known to be" with simple "is".',
+    'performed the measurement of': 'Consider replacing "performed the measurement of" with simple "measured".',
+    'made the measurement of': 'Consider replacing "made the measurement of" with simple "measured".',
+    'performed the measurements of': 'Consider replacing "performed the measurements of" with simple "measured".',
+    'made the measurements of': 'Consider replacing "made the measurements of" with simple "measured".',
 
-    # Negatives
+    # Replace "to be" with a verb
 
-    'not able': 'Consider replacing negative "not able" with more positive "unable".',
-    'not different': 'Consider replacing negative "not different" with more positive "alike".',
-    'did not accept': 'Consider replacing negative "did not accept" with more positive "rejected".',
-    'does not accept': 'Consider replacing negative "does not accept" with more positive "rejects".',
-    'do not accept': 'Consider replacing negative "do not accept" with more positive "reject".',
-    'did not consider': 'Consider replacing negative "did not consider" with more positive "ignored".',
-    'have not considered': 'Consider replacing negative "have not considered" with more positive "ignored".',
-    'has not considered': 'Consider replacing negative "has not considered" with more positive "ignored".',
-    'do not considered': 'Consider replacing negative "do not considered" with more positive "ignore".',
-    'do not allow': 'Consider replacing negative "do not allow" with more positive "prevent".',
-    'did not allow': 'Consider replacing negative "did not allow" with more positive "prevented".',
-    'does not allow': 'Consider replacing negative "does not allow" with more positive "prevents".',
-    'does not have': 'Consider replacing negative "does not have" with more positive "lacks".',
-    'do not have': 'Consider replacing negative "do not have" with more positive "lack".',
-    'did not have': 'Consider replacing negative "did not have" with more positive "lacked".',
-    'non symmetric': 'Consider replacing negative "non symmetric" with more positive "asymmetric".',
-    'non-symmetric': 'Consider replacing negative "non symmetric" with more positive "asymmetric".',
-    'not symmetric': 'Consider replacing negative "non symmetric" with more positive "asymmetric".',
-    'non polarized': 'Consider replacing negative "non polarized" with more positive "unpolarized".',
-    'not important': 'Consider replacing negative "not important" with more positive "unimportant" or "trifling".',
+    'is beginning': 'Consider replacing "is beginning" with simple "begins".',
+    'are beginning': 'Consider replacing "are beginning" with simple "begin".',
+    'is following': 'Consider replacing "is following" with simple "follows".',
+    'are following': 'Consider replacing "are following" with simple "follow".',
+    'is used to detect': 'Consider replacing "is used to detect" with simple "detects".',
+    'was used to detect': 'Consider replacing "was used to detect" with simple "detected".',
+    'is dependent': 'Consider replacing "is dependent" with simple "depends".',
+    'are dependent': 'Consider replacing "are dependent" with simple "depends".',
 
-    # Redundant words
+    # Empty adjectives
 
-    'necessary requirements': 'Consider replacing redundant "necessary requirements" with just "requirements".',
-    'necessary requirement ': 'Consider replacing redundant "necessary requirement" with just "requirement".',
-    'smaller in size': 'Consider replacing redundant "smaller in size" with just "smaller".',
-    'larger in size': 'Consider replacing redundant "larger in size" with just "larger".',
-    'bigger in size': 'Consider replacing redundant "bigger in size" with just "bigger".',
-    'most unique': 'Consider replacing redundant "most unique" with just "unique".',
-    'resultant effect': 'Consider replacing redundant "resultant effect" with just "result".',
-    'end result': 'Consider replacing redundant "end result" with just "result".',
-    'pooled together': 'Consider replacing redundant "pooled together" with just "pooled".',
-    'joined together': 'Consider replacing redundant "joined together" with just "joined".',
-    'fewer in number': 'Consider replacing redundant "fewer in number" with just "fewer".',
-    'exactly the same': 'Consider replacing redundant "exactly the same" with just "the same".',
-    'repeat again': 'Consider replacing redundant "repeat again" with just "repeat".',
-    'repeated again': 'Consider replacing redundant "repeated again" with just "repeated".',
-    'revert back': 'Consider replacing redundant "revert back" with just "revert".',
-    'reverted back': 'Consider replacing redundant "reverted back" with just "reverted".',
-    'shorter in length': 'Consider replacing redundant "shorter in length" with just "shorter".',
-    'longer in length': 'Consider replacing redundant "longer in length" with just "longer".',
-    'summarize briefly': 'Consider replacing redundant "summarize briefly" with just "summarize".',
-    'briefly summarize': 'Consider replacing redundant "briefly summarize" with just "summarize".',
-    'a total of': 'In phrases like "a total of ten samples", you can just write "ten samples".',
-    'A total of': 'In phrases like "A total of ten samples", you can just write "Ten samples".',
-    'close proximity': 'Consider replacing redundant "close proximity" with just "proximity".',
-    'each and every': 'Consider replacing redundant "each and every" with just "each".',
-    'Each and every': 'Consider replacing redundant "Each and every" with just "Each".',
-    'make a study of': 'Consider replacing "make a study of" with just "study".',
-    'made a study of': 'Consider replacing "made a study of" with just "studied".',
-    'conduct an investigation of': 'Consider replacing "conduct an investigation of" with just "investigate".',
-    'conduct investigation of': 'Consider replacing "conduct investigation of" with just "investigate".',
-    'conduct the investigation of': 'Consider replacing "conduct the investigation of" with just "investigate".',
-    'conducted an investigation of': 'Consider replacing "conducted an investigation of" with just "investigated".',
-    'conducted investigation of': 'Consider replacing "conducted investigation of" with just "investigated".',
-    'conducted the investigation of': 'Consider replacing "conducted the investigation of" with just "investigated".',
+    'comprehensive': 'Consider if adjective "comprehensive" really adds anything here.',
+    'detailed': 'Consider if adjective "detailed" really adds anything here.',
+    'fundamental': 'Consider if adjective "fundamental" really adds anything here.',
 
     # Overused words
 
@@ -552,6 +530,7 @@ bad_patterns_dictionary = {
     '$\hbar$ is the reduced Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
     '$\hbar$ is the Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
     '$\hbar$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    'irregardless': 'Replace "irregardless" with "regardless".',
 
     # Numbers next to words
 
@@ -649,7 +628,7 @@ bad_patterns_dictionary = {
     'pretty much': 'Consider pretty much deleting "pretty much".',
     'sort of': 'Consider sort of replacing "sort of" with "rather" or sort of avoiding it completely.',
     ' less ': 'Verify that "less" is not misused for "fewer" (e.g. "less time", but "fewer samples") or cannot be replaced with a more precise word like "thinner", "shorter", "weaker" etc.',
-    ' very ': 'Consider if the word "very" is very very necessary. If the emphasis is necessary, use words strong in themselves or quantify the statement.',
+    ' very ': 'Consider if the word "very" is very very necessary. If the emphasis is required, use words strong in themselves or quantify the statement.',
     'viewpoint': 'Consider replacing with "point of view".',
     "don't": "Most academic journals prefer do not instead of don't.",
     "isn't": "Most academic journals prefer is not instead of isn't.",
@@ -672,7 +651,7 @@ bad_patterns_dictionary = {
     'A lot of': 'Consider replacing "A lot of" with "Many" or "Several", or just give the exact number.',
     'You ': 'Using "You" might be inappropriate in academic writing. Consider using "One", e.g. "One can see...".',
     'you ': 'Using "you" might be inappropriate in academic writing. Consider using "One", e.g. "One can see...".',
-    'And': 'Instead of starting this sentence with "And" try just removing it.',
+    'And ': 'Instead of starting this sentence with "And" try just removing it.',
     ' things': 'The word "things" is rather vague, try to be more specific.',
     ' thing': 'The word "thing" is rather vague, try to be more specific.',
     'Dear Editor': 'Consider to address your dear editor by the real name.',
@@ -725,6 +704,83 @@ bad_patterns_dictionary = {
     '+/-': 'If you are in LaTeX, use "\pm" instead of "+/-". Otherwise, find proper plus-minus symbol.',
     ' $^\circ$C': 'Degrees Celsius should not be separated from the number with a space',
     ' $^\circ$F': 'Degrees Fahrenheit should not be separated from the number with a space.',
+    }
+
+redundant_dictionary = {
+    'necessary requirements': 'requirements',
+    'necessary requirement ': 'requirement',
+    'smaller in size': 'smaller',
+    'larger in size': 'larger',
+    'bigger in size': 'bigger',
+    'most unique': 'unique',
+    'resultant effect': 'result',
+    'end result': 'result',
+    'pooled together': 'pooled',
+    'joined together': 'joined',
+    'fewer in number': 'fewer',
+    'exactly the same': 'the same',
+    'repeat again': 'repeat',
+    'repeated again': 'repeated',
+    'revert back': 'revert',
+    'reverted back': 'reverted',
+    'shorter in length': 'shorter',
+    'longer in length': 'longer',
+    'summarize briefly': 'summarize',
+    'briefly summarize': 'summarize',
+    'a total of': 'ten samples',
+    'A total of': 'Ten samples',
+    'close proximity': 'proximity',
+    'each and every': 'each',
+    'Each and every': 'Each',
+    'make a study of': 'study',
+    'made a study of': 'studied',
+    'conduct an investigation of': 'investigate',
+    'conduct investigation of': 'investigate',
+    'conduct the investigation of': 'investigate',
+    'conducted an investigation of': 'investigated',
+    'conducted investigation of': 'investigated',
+    'conducted the investigation of': 'investigated',
+    'already exist': 'exist',
+    'alternative choice': 'choice',
+    'basic fundamentals': 'fundamentals',
+    'completely eliminate': 'eliminate',
+    'continue to remain': 'remain',
+    'continues to remain': 'remains',
+    'currently being': 'being',
+    'currently underway': 'underway',
+    'empty space': 'space',
+    'introduce a new': 'introduce',
+    'introduced a new': 'introduced',
+    'mix together': 'mix".',
+    'never before': 'never',
+    'period of time': 'period',
+    'separate entities': 'entities',
+    'still persist': 'persist',
+    }
+
+negatives_dictionary = {
+    'not able': 'unable',
+    'not different': 'alike',
+    'did not accept': 'rejected',
+    'does not accept': 'rejects',
+    'do not accept': 'reject',
+    'did not consider': 'ignored',
+    'have not considered': 'ignored',
+    'has not considered': 'ignored',
+    'do not considered': 'ignore',
+    'do not allow': 'prevent',
+    'did not allow': 'prevented',
+    'does not allow': 'prevents',
+    'does not have': 'lacks',
+    'do not have': 'lack',
+    'did not have': 'lacked',
+    'non symmetric': 'asymmetric',
+    'non-symmetric': 'asymmetric',
+    'not symmetric': 'asymmetric',
+    'non polarized': 'unpolarized',
+    'not important': 'unimportant',
+    'not known': 'unknown',
+    'not significant': 'negligible',
     }
 
 
@@ -981,7 +1037,7 @@ def intro_patterns(text):
 
 
 def line_is_valid(line):
-    '''Check if the line is not empty and not a comment'''
+    '''Check if the line is not empty and not a Latex comment'''
     validation = False
     if len(line) > 1:
         if line[0] != '%':
@@ -989,7 +1045,25 @@ def line_is_valid(line):
     return validation
 
 
-def main(text, english='american'):
+def redundancy(line, index):
+    '''Check for the redundancies'''
+    mistakes = []
+    for word in redundant_dictionary:
+        if word in line:
+            mistakes.append(f'Line {index + 1}. Replace likely redundant "{word}" with just "{redundant_dictionary[word]}".')
+    return mistakes
+
+
+def negatives(line, index):
+    '''Check for the negatives'''
+    mistakes = []
+    for word in negatives_dictionary:
+        if word in line:
+            mistakes.append(f'Line {index + 1}. Replace negative "{word}" with a more positive "{negatives_dictionary[word]}".')
+    return mistakes
+
+
+def main(text, english):
     '''This is the main function that runs all checks and returns the results to the web app'''
 
     # General checks
@@ -1011,6 +1085,8 @@ def main(text, english='american'):
             results += numbers_next_to_units(line, index)
             results += british_spelling(line, index, english)
             results += overcitation(line, index)
+            results += redundancy(line, index)
+            results += negatives(line, index)
 
     # Additional checks
     results += elements(text)
