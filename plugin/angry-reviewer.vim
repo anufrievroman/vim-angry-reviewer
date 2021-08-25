@@ -29,7 +29,7 @@ exceptions_list = set(['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
     'INTRODUCTION', 'LIMMS', 'DNA', 'RNA', 'IIS', 'CREST', 'PRESTO', 'PNAS',
     'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM', 'AIDS', 'AC', 'DC',
     'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA', 'BibTeX', 'APS', 'InA',
-    'LED', 'OLED',])
+    'LED', 'OLED', 'ACS',])
 
 overused_intro_dictionary = {
     'However': 'But or Yet',
@@ -932,7 +932,7 @@ def british_spelling(line, index, english):
     return mistakes
 
 
-def abstract_length(text):
+def abstract_lenght(text):
     '''Find the abstract, check its length and advise if it's too long'''
     # First search for begin{abstract}. If nothing, search for abstract{
     try:
@@ -963,7 +963,7 @@ def abstract_length(text):
     return mistakes
 
 
-def title_length(text):
+def title_lenght(text):
     '''Find the title, check its length and advise if it's too long'''
     title = ""
     for line in text:
@@ -1101,11 +1101,12 @@ def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results to the web app'''
     # General checks
     results = []
-    results += title_length(text)
-    results += abstract_length(text)
+    results += title_lenght(text)
+    results += abstract_lenght(text)
     results += references(text)
     results += intro_patterns(text)
     results += elements(text)
+    results += abbreviations(text)
 
     # Checks for each line which is not a comment
     for index, line in enumerate(text):
@@ -1121,9 +1122,6 @@ def main(text, english='american'):
             results += overcitation(line, index)
             results += redundancy(line, index)
             results += negatives(line, index)
-
-    # Additional checks
-    results += abbreviations(text)
 
     if len(results) == 0:
         results = ["Looks like this text is perfect!"]
@@ -1146,17 +1144,10 @@ except ValueError:
 text = list(vim.current.buffer)
 results = main(text, english=english_opt)
 
-# Open results in a split
-# BJC94: This should be removed if it's decided to stick with qf-list approach
-#vim.command('vsplit e')
-#vim.command('set nonumber')
-#vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
-#vim.current.buffer.append(results)
-
 # Open results in a quickfix-window
 vim.command('call setqflist([], "r")')  # clear qflist
 for result in results:
-    lnum = '0'
+    lnum = '1'
     qfitem = result
 
     result_has_lnum = re.search('Line .', result)
@@ -1172,13 +1163,6 @@ vim.command('echo "SUGGESTIONS FOR YOUR TEXT GENERATED"')
 
 EOF
 
-
 endfunction
 
 command! -nargs=0 AngryReviewer call AngryReviewer()
-" BJC94: See updated Readme, better to let users set their own mappings
-" nnoremap <leader>ar :AngryReviewer<cr>
-
-" BJC94: This should be removed if it's decided to stick with qf-list approach
-syntax match potionComment "SUGGESTIONS FOR YOUR TEXT:"
-highlight link potionComment Comment
