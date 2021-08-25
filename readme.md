@@ -21,7 +21,7 @@ To set a shortcut in `.vimrc`, use
 
     nnoremap <leader>ar :AngryReviewer<cr>
 
-You can remap the shortcut (for example to <space>r) as:
+You can remap the shortcut (for example to `<space>r`) as:
 
     nnoremap <space>r :AngryReviewer<cr>
 
