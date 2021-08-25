@@ -3,7 +3,7 @@
 Plugin provides style suggestions for academic and scientific text in the quick-fix list of vim and neovim. It works with any text, but suggestions are even better with Latex files of scientific papers.
 This plugin is the offline version of the free web-service [AngryReviewer.com](https://www.angryreviewer.com). You can read about the rules used in the suggestion algorithm [here](https://www.angryreviewer.com/rules).
 
-![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screen.jpg)
+![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screenshot.png)
 
 ## Installation
 
@@ -25,7 +25,7 @@ You can remap the shortcut (for example to `<space>r`) as:
 
     nnoremap <space>r :AngryReviewer<cr>
 
-It works without any additional configuration, but you find documentation as:
+It works without any additional configuration, but you can find documentation as:
 
     :h AngryReviewer
 
@@ -34,6 +34,13 @@ It works without any additional configuration, but you find documentation as:
 Check the currently opened text:
 
     :AngryReviewer
+
+Suggestions are opened in the quick-fix list. Here are some useful commands to navigate the quick fix list:
+
+`cnext` - next suggestion
+`cprev` - previous suggestion
+`cclose` - close the quick-fix list
+`copen` - reopen the quick-fix list
 
 ## Author and Feedback
 

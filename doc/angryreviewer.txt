@@ -30,6 +30,12 @@ To check text in the buffer run:
 
 :AngryReviewer
 
+Suggestions are opened in the quick-fix list. Here are some useful commands to navigate the quick fix list:
+
+cnext - next suggestion
+cprev - previous suggestion
+cclose - close the quick-fix list
+copen - reopen the quick-fix list
 
 KEY MAPPING
 ============================================
