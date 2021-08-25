@@ -13,6 +13,10 @@ Using [vim-plug](https://github.com/junegunn/vim-plug):
 
     Plug 'anufrievroman/vim-angry-reviewer'
 
+Set the english dialect in `.vimrc` (either 'american' or 'british'):
+
+    let g:AngryReviewerEnglish = 'american'
+
 To set a shortcut in `.vimrc`, use
 
     nnoremap <leader>ar :AngryReviewer<cr>

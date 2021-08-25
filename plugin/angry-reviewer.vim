@@ -1178,7 +1178,6 @@ endfunction
 command! -nargs=0 AngryReviewer call AngryReviewer()
 " BJC94: See updated Readme, better to let users set their own mappings
 " nnoremap <leader>ar :AngryReviewer<cr>
-let g:AngryReviewerEnglish = 'british'
 
 " BJC94: This should be removed if it's decided to stick with qf-list approach
 syntax match potionComment "SUGGESTIONS FOR YOUR TEXT:"
