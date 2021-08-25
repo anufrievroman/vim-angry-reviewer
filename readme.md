@@ -3,7 +3,7 @@
 Plugin provides style suggestions for academic and scientific text in the quick-fix list of vim and neovim. It works with any text, but suggestions are even better with Latex files of scientific papers.
 This plugin is the offline version of the free web-service [AngryReviewer.com](https://www.angryreviewer.com). You can read about the rules used in the suggestion algorithm [here](https://www.angryreviewer.com/rules).
 
-![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screenshot.png)
+![Screenshot](https://github.com/anufrievroman/vim-angry-reviewer/blob/main/screen.png)
 
 ## Installation
 
