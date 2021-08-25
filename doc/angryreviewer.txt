@@ -12,6 +12,18 @@ The plugin provides style suggestions for academic and scientific text.
 It works with any text, but works best with Latex files of scientific papers.
 This plugin is the offline version of the free web-service AngryReviewer.com
 
+
+INSTALLATION
+============================================
+Use your favorite plugin manager. Using vim-plug:
+
+Plug 'anufrievroman/vim-angry-reviewer'
+
+Set the english dialect in `.vimrc` (either 'american' or 'british'):
+
+let g:AngryReviewerEnglish = 'american'
+
+
 USAGE
 ============================================
 To check text in the buffer run:

@@ -1128,9 +1128,21 @@ def main(text, english='american'):
     return results
 
 
+# Read AngryReviewerEnglish option from vim
+try:
+    english_opt = vim.vars["AngryReviewerEnglish"]
+    if english_opt not in ['american', 'british']:
+        raise ValueError
+except KeyError:
+    print("[WARNING] g:AngryReviewerEnglish not set, (using american english)")
+    english_opt = 'american'
+except ValueError:
+    print("[WARNING] g:AngryReviewerEnglish must be 'american' or 'british', (using american english)")
+    english_opt = 'american'
+
 # Read the buffer and send it for processing
 text = list(vim.current.buffer)
-results = main(text)
+results = main(text, english=english_opt)
 
 # Open results in a quickfix-window
 vim.command('call setqflist([], "r")')  # clear qflist
@@ -1147,6 +1159,7 @@ for result in results:
     vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
 
 vim.command('copen | setlocal nonu nornu wrap linebreak colorcolumn=0')
+vim.command('echo "SUGGESTIONS FOR YOUR TEXT GENERATED"')
 
 EOF
 
