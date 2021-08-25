@@ -35,13 +35,16 @@ Check the currently opened text:
 
     :AngryReviewer
 
-Suggestions are opened in the quick-fix list. Here are some useful commands to navigate the quick fix list:
+Suggestions are opened in the quick-fix list. Useful commands to navigate the quick fix list:
 
-`cnext` - next suggestion
-`cprev` - previous suggestion
-`cclose` - close the quick-fix list
-`copen` - reopen the quick-fix list
+`:cnext` - next suggestion
 
-## Author and Feedback
+`:cprev` - previous suggestion
+
+`:cclose` - close the quick-fix list
+
+`:copen` - reopen the quick-fix list
+
+## Feedback
 
 To learn more about the project, visit [AngryReviewer.com](https://www.angryreviewer.com). Feel free to open issues and contribute to the vim plugin here. For issues regarding suggestions and rules, please visit the [main repository of Angry Reviewer](https://github.com/anufrievroman/Angry-Reviewer).
