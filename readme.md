@@ -13,7 +13,15 @@ Using [vim-plug](https://github.com/junegunn/vim-plug):
 
     Plug 'anufrievroman/vim-angry-reviewer'
 
-It works without any configuration, but you find documentation as:
+To set a shortcut in `.vimrc`, use
+
+    nnoremap <leader>ar :AngryReviewer<cr>
+
+You can remap the shortcut (for example to <space>r) as:
+
+    nnoremap <space>r :AngryReviewer<cr>
+
+It works without any additional configuration, but you find documentation as:
 
     :h AngryReviewer
 
@@ -22,14 +30,6 @@ It works without any configuration, but you find documentation as:
 Check the currently opened text:
 
     :AngryReviewer
-
-Default keyboard shortcut:
-
-    <leader>ar
-
-You can remap the shortcut (for example to <space>r) as:
-
-    nnoremap <space>r :AngryReviewer<cr>
 
 ## Author and Feedback
 

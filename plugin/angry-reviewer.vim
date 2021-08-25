@@ -932,7 +932,7 @@ def british_spelling(line, index, english):
     return mistakes
 
 
-def abstract_lenght(text):
+def abstract_length(text):
     '''Find the abstract, check its length and advise if it's too long'''
     # First search for begin{abstract}. If nothing, search for abstract{
     try:
@@ -963,7 +963,7 @@ def abstract_lenght(text):
     return mistakes
 
 
-def title_lenght(text):
+def title_length(text):
     '''Find the title, check its length and advise if it's too long'''
     title = ""
     for line in text:
@@ -1101,8 +1101,8 @@ def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results to the web app'''
     # General checks
     results = []
-    results += title_lenght(text)
-    results += abstract_lenght(text)
+    results += title_length(text)
+    results += abstract_length(text)
     results += references(text)
     results += intro_patterns(text)
     results += elements(text)
@@ -1135,17 +1135,37 @@ text = list(vim.current.buffer)
 results = main(text)
 
 # Open results in a split
-vim.command('vsplit e')
-vim.command('set nonumber')
-vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
-vim.current.buffer.append(results)
+# BJC94: This should be removed if it's decided to stick with qf-list approach
+#vim.command('vsplit e')
+#vim.command('set nonumber')
+#vim.current.buffer[0] = 'SUGGESTIONS FOR YOUR TEXT:'
+#vim.current.buffer.append(results)
+
+# Open results in a quickfix-window
+vim.command('call setqflist([], "r")')  # clear qflist
+for result in results:
+    lnum = '0'
+    qfitem = result
+
+    result_has_lnum = re.search('Line .', result)
+    if result_has_lnum:
+        lnum_search = re.search('\d+', result)
+        lnum = lnum_search[0]
+        qfitem = result[lnum_search.end()+2:]  # Clip text following Line xx.\s
+
+    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
+
+vim.command('copen | setlocal nonu nornu wrap linebreak colorcolumn=0')
 
 EOF
+
 
 endfunction
 
 command! -nargs=0 AngryReviewer call AngryReviewer()
-nnoremap <leader>ar :AngryReviewer<cr>
+" BJC94: See updated Readme, better to let users set their own mappings
+" nnoremap <leader>ar :AngryReviewer<cr>
 
+" BJC94: This should be removed if it's decided to stick with qf-list approach
 syntax match potionComment "SUGGESTIONS FOR YOUR TEXT:"
 highlight link potionComment Comment
