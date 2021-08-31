@@ -1156,7 +1156,7 @@ for result in results:
         lnum = lnum_search[0]
         qfitem = result[lnum_search.end()+2:]  # Clip text following Line xx.\s
 
-    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem+'\'}], "a")')
+    vim.command('call setqflist([{"bufnr": bufnr(""), "lnum": '+lnum+', "text": \''+qfitem.replace("'", "''") +'\'}], "a")')
 
 vim.command('copen | setlocal nonu nornu wrap linebreak colorcolumn=0')
 vim.command('echo "SUGGESTIONS FOR YOUR TEXT GENERATED"')
