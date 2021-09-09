@@ -215,8 +215,6 @@ bad_patterns_dictionary = {
     ' proved ': 'Phrases about "prove" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with words like "evidence", "demonstration", "confirmation" etc.',
     ' proof ': 'Phrases about "proof" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with words like "evidence", "demonstration", "confirmation" etc.',
     ' proves ': 'Phrases about "proves" should be considered with caution. Strict proof is possible only in math, whereas science usually operates with evidence. Consider replacing with verbs like "evidence", "demonstrate", "confirm" etc.',
-    ' never ': 'According to Craft of Scientific Writing: "Never is a frightening word because it invites the readers to think of exceptions". Consider alternatives: "rarely", "seldom", "remains unclear", "remains challenging".',
-    'always': 'According to Craft of Scientific Writing: "Always is a frightening word because it invites the readers to think of exceptions. You should go in fear of absolutes".',
     'certainly': 'Consider if this sentence needs the word "certainly". According to The Elements of Style: "Used indiscriminately by some speakers, much as others use very, to intensify any and every statement. A mannerism of this kind, bad in speech, is even worse in writing".',
     ' fact ': 'Check if the word "fact" is actually applied to a fact. According to The Elements of Style: "Use this word only of matters of a kind capable of direct verification, not of matters of judgment."',
     'highly': 'The word "highly" rarely highly contributes to better understanding. Consider removing it or, if important quantifying it.',
@@ -786,6 +784,16 @@ negatives_dictionary = {
     'not significant': 'negligible',
     }
 
+absolutes_dictionary = {
+    ' never ': 'According to Craft of Scientific Writing: "Never is a frightening word because it invites the readers to think of exceptions". Consider alternatives: "rarely", "seldom", "remains unclear", "remains challenging".',
+    'always': 'According to Craft of Scientific Writing: "Always is a frightening word because it invites the readers to think of exceptions. You should go in fear of absolutes".',
+    }
+
+absolutes_exceptions = [
+    ['almost never'],
+    ['not always', 'almost always'],
+    ]
+
 
 def number_to_words(number):
     '''Convert number into word'''
@@ -1099,13 +1107,55 @@ def negatives(line, index):
     return mistakes
 
 
+def latex_best_practices(text):
+    '''Check is sentences are not on separate lines in LaTeX'''
+    mistakes = []
+    dots_in_line = 0
+    useful_lines = 0
+    for line in text:
+        if line_is_valid(line):
+            line = re.sub(r'Fig\.', '', line)
+            line = re.sub(r'Eq\.', '', line)
+            line = re.sub(r'i\.e\.', '', line)
+            line = re.sub(r'et al\.', '', line)
+            line = re.sub(r'e\.g\.', '', line)
+            line = re.sub(r'\d.\d', '', line)
+            line = re.sub(r'\.[^ ]', '', line)
+            dots_in_line += line.count('.')
+            useful_lines += 1
+    if dots_in_line/useful_lines > 1.2:
+        mistakes.append(f'In LaTeX, it is considered a best practice to start each sentence from a new line.')
+    return mistakes
+
+
+def it_is_latex_text(text):
+    '''Check if this is LaTeX document'''
+    entire_text = unite_valid_lines(text)
+    it_is_latex_text = (('\\begin{document}' in entire_text) or ('\\documentclass' in entire_text))
+    return it_is_latex_text
+
+
+def absolutes(line, index):
+    '''This checks for words like 'always' or 'never' but excepts exceptions'''
+    mistakes = []
+    for num, word in enumerate(absolutes_dictionary):
+        not_exception = [exception not in line for exception in absolutes_exceptions[num]]
+        if (word in line) and all(not_exception):
+            mistakes.append(f'Line {index + 1}. {absolutes_dictionary[word]}')
+    return mistakes
+
+
 def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results to the web app'''
-    # General checks
     results = []
-    results += title_lenght(text)
-    results += abstract_lenght(text)
-    results += references(text)
+    # Checks for LaTeX specific issues
+    if it_is_latex_text(text):
+        results += title_lenght(text)
+        results += abstract_lenght(text)
+        results += references(text)
+        results += latex_best_practices(text)
+
+    # General checks
     results += intro_patterns(text)
     results += elements(text)
     results += abbreviations(text)
@@ -1124,6 +1174,7 @@ def main(text, english='american'):
             results += overcitation(line, index)
             results += redundancy(line, index)
             results += negatives(line, index)
+            results += absolutes(line, index)
 
     if len(results) == 0:
         results = ["Looks like this text is perfect!"]
