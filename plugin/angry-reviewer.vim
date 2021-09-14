@@ -29,7 +29,7 @@ exceptions_list = set(['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
     'INTRODUCTION', 'LIMMS', 'DNA', 'RNA', 'IIS', 'CREST', 'PRESTO', 'PNAS',
     'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM', 'AIDS', 'AC', 'DC',
     'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA', 'BibTeX', 'APS', 'InA',
-    'LED', 'OLED', 'ACS',])
+    'LED', 'OLED', 'ACS', 'PhD', 'MIT', 'NASA', 'HIV', 'RAM', 'CPU', 'LCD', 'LED', 'OLED'])
 
 overused_intro_dictionary = {
     'However': 'But or Yet',
@@ -553,6 +553,13 @@ bad_patterns_dictionary = {
     '$\hbar$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
     'irregardless': 'Replace "irregardless" with "regardless".',
     'Monte-Carlo': 'Spell "Monte-Carlo" without a hyphen, i.e. "Monte Carlo".',
+    'have to have': 'Replace "have to have" with "must have" or "should have".',
+    'has to have': 'Replace "have to have" with "must have" or "should have".',
+    'everyone of ': 'Correct "everyone of" as "every one of".',
+    ' an other ': 'Correct "an other" as "another".',
+    ' is comprised of ': 'Correct "is comprised of" as "comprases". The whole comprises its parts.',
+    ' onboard ': 'Correct "onboard" as "on-board".',
+    ' cause and affect': 'Correct as "cause and affect" as "cause and effect".',
 
     # Numbers next to words
 
@@ -738,11 +745,9 @@ redundant_dictionary = {
     'resultant effect': 'result',
     'end result': 'result',
     'pooled together': 'pooled',
-    'joined together': 'joined',
+    'assemble together': 'assemble',
     'fewer in number': 'fewer',
     'exactly the same': 'the same',
-    'repeat again': 'repeat',
-    'repeated again': 'repeated',
     'revert back': 'revert',
     'reverted back': 'reverted',
     'shorter in length': 'shorter',
@@ -765,7 +770,6 @@ redundant_dictionary = {
     'already exist': 'exist',
     'alternative choice': 'choice',
     'basic fundamentals': 'fundamentals',
-    'completely eliminate': 'eliminate',
     'continue to remain': 'remain',
     'continues to remain': 'remains',
     'currently being': 'being',
@@ -778,6 +782,198 @@ redundant_dictionary = {
     'period of time': 'period',
     'separate entities': 'entities',
     'still persist': 'persist',
+    'return back': 'return',
+    'returned back': 'returned',
+    'true fact': 'fact',
+    'repeated again': 'repeated',
+    'repeating again': 'repeated',
+    'repeat again': 'repeated',
+    'already has been': 'has been',
+    'already have been': 'have been',
+    'join together': 'join',
+    'joined together': 'join',
+    'might possibly': 'might',
+    'might perhaps': 'might',
+    'must necessarily': 'must',
+    'must inevitably': 'must',
+    'must necessary': 'must',
+    'must definitely': 'must',
+    'previous experience': 'experience',
+    'prior experience': 'experience',
+    'past experience': 'experience',
+    'first conceived': 'conceived',
+    'actual fact': 'fact',
+    'advance forward': 'advance',
+    'add an additional': 'add',
+    'added bonus': 'bonus',
+    'all-time record': 'record',
+    'alternative choice': 'choice',
+    'and etc.': 'etc.',
+    'anonymous stranger': 'stranger',
+    'annual anniversary': 'anniversary',
+    'ask the question': 'ask',
+    'ATM machine': 'ATM',
+    'bald-headed': 'bald',
+    'best ever': 'best',
+    'bouquet of flowers': 'bouquet',
+    'brief in duration': 'brief',
+    'cacophony of sound': 'cacophony',
+    'careful scrutiny': 'scrutiny',
+    'cash money': 'cash',
+    'classify into groups': 'classify',
+    'close proximity': 'proximity',
+    'commute back and forth': 'commute',
+    'compete with each other': 'compete',
+    'component part': 'part',
+    'confused state': 'confused',
+    'constantly maintained': '',
+    'crisis situation': 'crisis',
+    'current trend': 'trend',
+    'depreciate in value': 'depreciate',
+    'depreciates in value': 'depreciates',
+    'depreciated in value': 'depreciated',
+    'desirable benefit': 'benefit',
+    'disappear from sight': 'disappear',
+    'disappeared from sight': 'disappeared',
+    'earlier in time': '',
+    'eliminate altogether': 'eliminate',
+    'emergency situation': 'emergency',
+    'enclosed herein': 'enclosed',
+    'end result': 'result',
+    'enter in ': 'enter',
+    'entirely eliminate': 'eliminate',
+    'equal to one another': 'equal',
+    'equals to one another': 'equal',
+    'eradicate completely': 'eradicate',
+    'estimated at about': 'estimated at',
+    'evolve over time': 'evolve',
+    'exact same': 'same',
+    'face mask': 'mask',
+    'few in number': 'few',
+    'first and foremost': 'first',
+    'First and foremost': 'First',
+    'first of all': 'first',
+    'First of all': 'First',
+    'fly through the air': 'fly',
+    'follow after': 'follow',
+    'foreign imports': 'imports',
+    'free gift': 'gift',
+    'full satisfaction': 'satisfaction',
+    'general public': 'public',
+    'GRE exam': 'GRE',
+    'grow in size': 'grow',
+    'harmful injuries': 'injuries',
+    'harmful injury': 'injury',
+    'HIV virus': 'HIV',
+    'hollow tube': 'tube',
+    'incredible to believe': 'incredible',
+    'integrate with each other': 'integrate',
+    'integrated with each other': 'integrated',
+    'interdependent on each other': 'interdependent',
+    'irregardless': 'regardless',
+    'joint collaboration': 'collaboration',
+    'knowledgeable expert': 'expert',
+    'lag behind': 'lag',
+    'LCD display': 'LCD',
+    'little baby': 'baby',
+    'local resident': 'resident',
+    'look back in retrospect': 'look back',
+    'manually by hand': 'manually',
+    'meet with each other': 'meet',
+    'mental telepathy': 'telepathy',
+    'mutual cooperation': 'cooperation',
+    'mutually interdependent': 'interdependent',
+    'mutual respect for each other': 'mutual respect',
+    'natural instinct': 'instinct',
+    'none at all': 'none',
+    'nostalgia for the past': 'nostalgia',
+    'now pending': 'pending',
+    'oral conversation': 'conversation',
+    'outside in the yard': 'in the yard',
+    'outside of': 'outside',
+    'over exaggerate': 'exaggerate',
+    'pair of twins': 'twins',
+    'palm of the hand': 'palm',
+    'penetrate into': 'penetrate',
+    'period of time': 'period',
+    'pick and choose': 'choose',
+    'polar opposites': 'opposites',
+    'postpone until later': 'postpone',
+    'previously listed above': 'listed above',
+    'proceed ahead': 'proceed',
+    'pursue after': 'pursue',
+    'RAM memory': 'RAM',
+    'recur again': 'recur',
+    'recured again': 'recured',
+    'regular routine': 'routine',
+    'round in shape': 'round',
+    'same exact': 'same',
+    'sand dune': 'dune',
+    'scrutinize in detail': 'scrutinize',
+    'scrutinized in detail': 'scrutinized',
+    'separated apart from each other': 'separated',
+    'serious danger': 'danger',
+    'shiny in appearance': 'shiny',
+    'spell out in detail': 'spell out',
+    'start off': 'start',
+    'sudden impulse': 'impulse',
+    'sum total': 'sum',
+    'surrounded on all sides': 'surrounded',
+    'time period': 'period',
+    'tiny bit': 'bit',
+    'total destruction': 'destruction',
+    'truly sincere': 'sincere',
+    'two equal halves': 'halves',
+    'ultimate goal': 'goal',
+    'undergraduate student': 'undergraduate',
+    'underground subway': 'subway',
+    'universal panacea': 'panacea',
+    'unnamed anonymous': 'anonymous',
+    'usual custom': 'custom',
+    'very unique': 'unique',
+    'visible to the eye': 'visible',
+    'warn in advance': 'warn',
+    'whether or not': 'whether',
+    'completely eliminate': 'eliminate',
+    'completely fill': 'fill',
+    'advance planning': 'planning',
+    'absolutely essential': 'essential',
+    'absolutely necessary': 'necessary',
+    'unexpected surprise': 'surprise',
+    'still persist': 'persist',
+    'basic fundamentals': 'fundamentals',
+    'fall down': 'fall',
+    'add up': 'add',
+    'heat up': 'heat',
+    'rise up': 'rise',
+    'open up': 'open',
+    'circle around': 'circle',
+    'final conclusion': 'conclusion',
+    'final outcome': 'outcome',
+    'cancel out': 'cancel',
+    'canceled out': 'canceled',
+    'cancels out': 'cancels',
+    'future plan': 'plan',
+    'frozen ice': 'ice',
+    'empty space': 'space',
+    'empty hole': 'hole',
+    'major breakthrough': 'breakthrough',
+    'revert back': 'revert',
+    'reflect back': 'reflect',
+    'reflects back': 'reflects',
+    'reflected back': 'reflected',
+    'personal friend': 'friend',
+    'personal opinion': 'opinion',
+    'soft in texture': 'soft',
+    'soft to the touch': 'soft',
+    'weather conditions': 'weather',
+    'weather situation': 'weather',
+    'introduced a new': 'introduced',
+    'introduced for the first time': 'introduced',
+    'introduce a new': 'introduce',
+    'introduce for the first time': 'introduce',
+    'plan ahead': 'plan',
+    'plan in advance)': 'plan',
     }
 
 negatives_dictionary = {
@@ -1128,20 +1324,32 @@ def negatives(line, index):
     return mistakes
 
 
+def remove_latex_syntax(line):
+    '''Remove latex stuff containing dots and long syntax from the line'''
+    line = re.sub(r'Fig\.', '', line)
+    line = re.sub(r'Figs\.', '', line)
+    line = re.sub(r'Eq\.', '', line)
+    line = re.sub(r'i\.e\.', '', line)
+    line = re.sub(r'et al\.', '', line)
+    line = re.sub(r'e\.g\.', '', line)
+    line = re.sub(r'vs\.', '', line)
+    line = re.sub(r'a\.k\.a\.', '', line)
+    line = re.sub(r'\d.\d', '', line)
+    line = re.sub(r'\.[^ ]', '', line)
+    line = re.sub(r'\\cite{[^}]+}', '', line)
+    line = re.sub(r'\\ref{[^}]+}', '', line)
+    line = re.sub(r'\$[^\$]+\$', '', line)
+    return line
+
+
 def latex_best_practices(text):
-    '''Check is sentences are not on separate lines in LaTeX'''
+    '''Check if sentences are not on separate lines in LaTeX'''
     mistakes = []
     dots_in_line = 0
     useful_lines = 0
     for line in text:
         if line_is_valid(line):
-            line = re.sub(r'Fig\.', '', line)
-            line = re.sub(r'Eq\.', '', line)
-            line = re.sub(r'i\.e\.', '', line)
-            line = re.sub(r'et al\.', '', line)
-            line = re.sub(r'e\.g\.', '', line)
-            line = re.sub(r'\d.\d', '', line)
-            line = re.sub(r'\.[^ ]', '', line)
+            line = remove_latex_syntax(line)
             dots_in_line += line.count('.')
             useful_lines += 1
     if dots_in_line/useful_lines > 1.2:
@@ -1152,17 +1360,7 @@ def latex_best_practices(text):
 def sentence_lenght(line, index):
     '''Check is the sentences is too long'''
     mistakes = []
-    line = re.sub(r'Fig\.', '', line)
-    line = re.sub(r'Eq\.', '', line)
-    line = re.sub(r'i\.e\.', '', line)
-    line = re.sub(r'et al\.', '', line)
-    line = re.sub(r'e\.g\.', '', line)
-    line = re.sub(r'\d.\d', '', line)
-    line = re.sub(r'\.[^ ]', '', line)
-    line = re.sub(r'\.[^ ]', '', line)
-    line = re.sub(r'\\cite{[^}]+}', '', line)
-    line = re.sub(r'\\ref{[^}]+}', '', line)
-    line = re.sub(r'\$[^\$]+\$', '', line)
+    line = remove_latex_syntax(line)
     sentences = line.split('.')
     if any([len(sentence) > 240 for sentence in sentences]):
         mistakes.append(f'Line {index + 1}. The sentence seems to be too long. Consider shortening or splitting it in two.')
@@ -1177,12 +1375,23 @@ def it_is_latex_text(text):
 
 
 def absolutes(line, index):
-    '''This checks for words like 'always' or 'never' but excepts exceptions'''
+    '''Checks for words like 'always' or 'never' but excepts exceptions'''
     mistakes = []
     for num, word in enumerate(absolutes_dictionary):
         not_exception = [exception not in line for exception in absolutes_exceptions[num]]
         if (word in line) and all(not_exception):
             mistakes.append(f'Line {index + 1}. {absolutes_dictionary[word]}')
+    return mistakes
+
+
+def comparing_absolutes(line, index):
+    '''Checks if there are comperative absolutes like "nearly infinite"'''
+    all_absolutes = re.findall(r"((a little( bit)?|almost|astonishingly|completely|exceedingly|extremely|highly|incredibly|more than|nearly|partly|partially|quite|somewhat|totally|unbelievably|very) (dead|disappeared|false|gone|illegal|infinite|invaluable|legal|perfect|pervasive|pregnant|professional|true|whole|vanished))", line)
+    mistakes = []
+    for phrase in all_absolutes:
+        phrase = str(phrase[0])
+        absolute = phrase.split(" ")[-1]
+        mistakes.append(f'Line {index + 1}. In "{phrase}" comprative degree is applied to an absolute. Usually, it is either {absolute} or not.')
     return mistakes
 
 
@@ -1217,6 +1426,7 @@ def main(text, english='american'):
             results += negatives(line, index)
             results += absolutes(line, index)
             results += sentence_lenght(line, index)
+            results += comparing_absolutes(line, index)
 
     if len(results) == 0:
         results = ["Looks like this text is perfect!"]
