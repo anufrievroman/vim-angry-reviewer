@@ -1992,6 +1992,8 @@ def main(text, english='american'):
 # Read AngryReviewerEnglish option from vim
 try:
     english_opt = vim.vars["AngryReviewerEnglish"]
+    if type(english_opt) == bytes:
+        english_opt = english_opt.decode()
     if english_opt not in ['american', 'british']:
         raise ValueError
 except KeyError:
