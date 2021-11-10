@@ -1,6 +1,6 @@
 " angry-reviewer.vim - Style suggestions for academic/scientific writing.
 " Maintainer: Anufriev Roman <http://angryreviewer.com>
-" Version:      1.3
+" Version:      1.2
 
 if !has('python3')
   echo "Error: Required vim compiled with +python3"
@@ -39,7 +39,7 @@ overused_intro_dictionary = {
     'Therefore': 'Thus or Hence',
     'Since': 'Because or As',
     'Yet': 'However or But',
-    'In addition': 'Also or But',
+    'In addition': 'Also',
     'Moreover': 'Also',
     'Indeed': 'For example',
     'Furthermore': 'Also or Moreover',
@@ -94,7 +94,7 @@ british_dictionary = {
     'spectre': 'specter',
     'calibre': 'caliber',
     'theatre': 'theater',
-    'litre': 'liter',
+    'litre': 'liter ',
     'tumour': 'tumor',
     'fibre': 'fiber',
     'analogue ': 'analog ',
@@ -139,7 +139,7 @@ british_dictionary = {
     'grey': 'gray',
     ' plough': ' plow',
     ' tyre': ' tire',
-    'towards': 'toward',
+    'towards': 'toward ',
     ' ageing': ' aging',
     'anaesthetic': 'anesthetic',
     'haemoglobin': 'hemoglobin',
