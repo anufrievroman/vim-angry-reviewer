@@ -252,6 +252,7 @@ bad_patterns_dictionary = {
     'This is': 'It might be unclear what "This is" points to if the previous phrase was complicated. Rewrite with a more specific subject, e.g. "This value is".',
     'This leads': 'It might be unclear what "This leads" points to if the previous phrase was complicated. Rewrite with a more specific subject, e.g. "This result leads".',
     'et al ': 'Needs a period after "et al". For example "Alferov et al. showed".',
+    'convincing proof': 'Usually proof if by definition convincing, so you may omit the word "convincing".',
 
     # Spelling out the abbreviations
 
@@ -565,6 +566,8 @@ bad_patterns_dictionary = {
     'low frequency vibration': 'Correct as "low-frequency".',
     'high frequency phonon': 'Correct as "high-frequency".',
     'low frequency phonon': 'Correct as "low-frequency".',
+    'straight curve': 'Usually a line is either straight or curved. Consider replacing "straight curve" with "straight line".',
+    'linear curve': 'Usually a linear dependence is not curved. Consider replacing "linear curve" with "line".',
 
     # Numbers next to words
 
@@ -736,7 +739,7 @@ bad_patterns_dictionary = {
     '$\mu$s': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}s" for better looking letter mu.',
     '$\mu$g': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}g" for better looking letter mu.',
     '$\mu$TDTR': 'You may replace LaTeX expression "$\mu$TDTR" with "{\\textmu}TDTR" for better looking letter mu.',
-    '\hslash': 'If by "\hslash" you mean the reduced Plack constant, use "\hbar".',
+    '\hslash': 'If by "\hslash" you mean the reduced Planck constant, use "\hbar".',
     '+/-': 'If you are in LaTeX, use "\pm" instead of "+/-". Otherwise, find proper plus-minus symbol.',
     ' $^\circ$C': 'Degrees Celsius should not be separated from the number with a space',
     ' $^\circ$F': 'Degrees Fahrenheit should not be separated from the number with a space.',
@@ -1557,8 +1560,7 @@ def bad_patterns(line, index):
     mistakes = []
     for word in bad_patterns_dictionary:
         if word in line:
-            mistakes.append(
-                f'Line {index + 1}. {bad_patterns_dictionary[word]}')
+            mistakes.append(f'Line {index + 1}. {bad_patterns_dictionary[word]}')
     return mistakes
 
 
@@ -1614,9 +1616,7 @@ def numbers_next_to_units(line, index):
     mistakes = []
     for number in range(9):
         for unit in units_list:
-            if (f'{number}{unit} ' in line) or (f'{number}{unit}.'
-                                                in line) or (f'{number}{unit},'
-                                                             in line):
+            if (f'{number}{unit} ' in line) or (f'{number}{unit}.' in line) or (f'{number}{unit},' in line):
                 mistakes.append(
                     f'Line {index + 1}. Put a space between the digit {number} and the unit {unit}'
                 )
@@ -1660,18 +1660,15 @@ def abbreviations(text):
     all_abbreviations = re.findall(r"\b(?:[A-Z][a-z]?){2,}", entire_text)
     filtered_abbreviations = []
     for abbreviation in all_abbreviations:
-        trimmed_abbreviation = abbreviation[:-1] if abbreviation[
-            -1] == 's' else abbreviation
+        trimmed_abbreviation = abbreviation[:-1] if abbreviation[-1] == 's' else abbreviation
         filtered_abbreviations.append(trimmed_abbreviation)
     mistakes = []
 
     # Check how often each abbreviation occurs and comment if less than five
     found_abbreviations = []
     for unique_abbreviation in set(filtered_abbreviations):
-        if (unique_abbreviation not in elements_list) and (
-                unique_abbreviation
-                not in exceptions_list) and (unique_abbreviation
-                                             not in units_list):
+        if (unique_abbreviation not in elements_list) and (unique_abbreviation
+                not in exceptions_list) and (unique_abbreviation not in units_list):
             occurance = filtered_abbreviations.count(unique_abbreviation)
             if 0 < occurance < 5:
                 found_abbreviations.append(unique_abbreviation)
@@ -1728,8 +1725,7 @@ def abstract_lenght(text):
     try:
         entire_text = unite_valid_lines(text)
         pattern = '+++'
-        abstract = entire_text.replace("begin{abstract",
-                                       pattern).split(pattern)
+        abstract = entire_text.replace("begin{abstract", pattern).split(pattern)
         abstract = abstract[1].replace("end{abstract", pattern).split(pattern)
         abstract = abstract[0][1:-1]
     except:
@@ -1801,10 +1797,8 @@ def references(text):
     if len(years) > 0:
         this_year = int(date.today().year)
         reference_ages = [this_year - year for year in years]
-        older_than_ten = 100 * len([age for age in reference_ages if age > 10
-                                    ]) // len(years)
-        older_than_five = 100 * len([age for age in reference_ages if age > 5
-                                     ]) // len(years)
+        older_than_ten = 100 * len([age for age in reference_ages if age > 10]) // len(years)
+        older_than_five = 100 * len([age for age in reference_ages if age > 5]) // len(years)
         if older_than_five > 50 or older_than_ten > 20:
             mistakes.append(
                 f"Looks like {older_than_five}% of your references are older than five years and {older_than_ten}% are even older than ten years. Mostly old references might signal poor actuality of your work to journal editors. Try to use newer references."
@@ -1815,12 +1809,10 @@ def references(text):
             )
 
         # Analyse self-citation. Find authors and cross-check with references.
-        all_authors_lines = re.findall(r'\\author[\[\]abcdefg\* ,\d]*{[^}]+}',
-                                       entire_text)
+        all_authors_lines = re.findall(r'\\author[\[\]abcdefg\* ,\d]*{[^}]+}', entire_text)
         names = []
         for author_line in all_authors_lines:
-            author_line = re.sub(r'\\author[\[\]abcdefg,\d]*{', '',
-                                 author_line)
+            author_line = re.sub(r'\\author[\[\]abcdefg,\d]*{', '', author_line)
             author_line_splitted = author_line.split(',')
             for each_author in author_line_splitted:
                 each_author_splitter = each_author.split(' ')
@@ -1868,11 +1860,11 @@ def intro_patterns(text):
         occurance_percentage = occurance / len(entire_text.split(" "))
         if (0.0012 < occurance_percentage < 0.002) and (occurance > 1):
             mistakes.append(
-                f'Sentences often start with {word}. Try alternatives like {overused_intro_dictionary[word]}.'
+                f'Sentences often start with "{word}". Try alternatives like "{overused_intro_dictionary[word]}".'
             )
         if occurance_percentage > 0.002 and occurance > 1:
             mistakes.append(
-                f'Sentences start with {word} too often. Try alternatives like {overused_intro_dictionary[word]}.'
+                f'Sentences start with "{word}" too often. Try alternatives like "{overused_intro_dictionary[word]}".'
             )
     return mistakes
 
@@ -2000,6 +1992,34 @@ def comparing_absolutes(line, index):
     return mistakes
 
 
+def number_of_times(line, index):
+    '''Check if there are phrases like "hundreds of times"'''
+    mistakes = []
+
+    # Patterns like "thousands of times":
+    all_patterns = re.findall(
+        r"((millions|hundreds|thousands|dozens) of (times|samples))",
+        line)
+    for phrase in all_patterns:
+        phrase_wrong = str(phrase[0])
+        phrase_corrected = phrase_wrong.split(" of ")[0][:-1] + " " + phrase_wrong.split(" of ")[1]
+        mistakes.append(
+            f'Line {index + 1}. Consider replacing "{phrase_wrong}" with "a few {phrase_corrected}".'
+        )
+
+    # Patterns like "thousands meters":
+    all_patterns = re.findall(
+        r"((millions|hundreds|thousands|dozens) (times|microns|micrometers|meters|hours|people|years))",
+        line)
+    for phrase in all_patterns:
+        phrase_wrong = str(phrase[0])
+        phrase_corrected = phrase_wrong.split(" ")[0][:-1] + " " + phrase_wrong.split(" ")[1]
+        mistakes.append(
+            f'Line {index + 1}. Replace "{phrase_wrong}" with "a {phrase_corrected}".'
+        )
+    return mistakes
+
+
 def in_the_name_of_law(line, index):
     '''Check if names of laws mistakenly start with an article'''
     pattern = re.compile("((T|t)he [^ ]*'s (law|distribution|equation|formula|wavelength|rule|limit|theory|radiation))")
@@ -2013,15 +2033,14 @@ def in_the_name_of_law(line, index):
 def extreme_quantities(line, index):
     '''Check if adjectives like big or small match the type of quantity'''
     # Quantities that should be high or low:
-    pattern = re.compile("(big|large|small) ((conductivity|conductance|resistance|diffusivity)|(thermal|electrical|interface|boundary) (conductivity|conductance|resistance|diffusivity)|frequency|value|temperature|pressure|altitude)")
+    pattern = re.compile("(big|large|small) ((conductivity|conductance|resistance|diffusivity)|(thermal|electrical|interface|boundary) (conductivity|conductance|resistance|resistivity|diffusivity)|frequency|value|temperature|concentration|pressure|altitude)")
     all_matches = pattern.findall(line)
     mistakes = []
     for match in all_matches:
         mistakes.append(f'Line {index + 1}. Usually "{match[1]}" is high/low rather than "{match[0]}".')
 
     # Quantities that should be long or short:
-    pattern = re.compile("(big|large|small) (wavelength|lifespan|length|period|time frame|time period\
-            |distance|path|mean free path|MFP)")
+    pattern = re.compile("(big|large|small) (wavelength|lifespan|length|period|time frame|time period|distance|path|mean free path|MFP)")
     all_matches = pattern.findall(line)
     for match in all_matches:
         mistakes.append(f'Line {index + 1}. Usually "{match[1]}" is long/short rather than "{match[0]}".')
@@ -2092,6 +2111,7 @@ def main(text, english='american'):
             results += numbers_with_s(line, index)
             results += in_the_name_of_law(line, index)
             results += extreme_quantities(line, index)
+            results += number_of_times(line, index)
 
     if len(results) == 0:
         results = ["Looks like this text is perfect!"]
