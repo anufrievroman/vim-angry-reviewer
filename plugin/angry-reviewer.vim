@@ -1554,6 +1554,39 @@ absolutes_exceptions = [
     ['not always', 'almost always'],
     ]
 
+complex_words = {
+    'elucidate':'explain',
+    'diminish': 'decrease',
+    'establish': 'set',
+    'depict': 'show',
+    'comprehensive': 'detailed',
+    'eliminate': 'remove',
+    'terminate': 'finish',
+    'discontinue': 'stop',
+    'immense': 'great',
+    'profound': 'deep',
+    'extensive': 'wide',
+    'substantial': 'large',
+    'essential': 'important',
+    'foremost': 'above all',
+    'prominent': 'well known',
+    'distinguished': 'well known',
+    'override': 'cancel',
+    'assess': 'evaluate',
+    'indistinguishable': 'identical',
+    'laborious': 'difficult',
+    'intricate': 'complex',
+    'elaborate': 'design',
+    'convoluted': 'complex',
+    'sophisticated': 'complex',
+    'adjacent': 'near',
+    'conceal': 'hide',
+    'acquire': 'get',
+    'execute': 'do',
+    'outstanding': 'great',
+    'achievement': 'result',
+    }
+
 
 def bad_patterns(line, index):
     '''Cross-check with the dictionary of known errors and suggest fixes'''
@@ -2075,6 +2108,27 @@ def numbers_with_s(line, index):
     return mistakes
 
 
+def difficult_words(text):
+    '''Check if there are some complex word with simple synonyms'''
+    mistakes = []
+    found_words = []
+    entire_text = unite_valid_lines(text)
+    for word in complex_words:
+        occurance = entire_text.count(word)
+        if (occurance > 0):
+            found_words.append(word)
+    if found_words != []:
+        synonyms = ''
+        errors = ''
+        for word in found_words:
+            synonyms += '"' + complex_words[word] + '", '
+            errors += '"' + word + '", '
+        mistakes.append(
+                f'You used some difficult words like {errors[:-2]}. Try using simple synonyms, like {synonyms[:-2]} because most readers of scientific papers are not native English speakers.'
+        )
+    return mistakes
+
+
 def main(text, english='american'):
     '''This is the main function that runs all checks and returns the results'''
     results = []
@@ -2089,6 +2143,7 @@ def main(text, english='american'):
     results += intro_patterns(text)
     results += elements(text)
     results += abbreviations(text)
+    results += difficult_words(text)
 
     # Checks for each line which is not a comment:
     for index, line in enumerate(text):
