@@ -15,24 +15,24 @@ import vim
 import re
 from datetime import date
 
-elements_list = set(['Al', 'Si', 'Cr', 'Ga', 'Ti', 'GaAs', 'SiC', 'Cu', 'Ge',
+ELEMENTS = {'Al', 'Si', 'Cr', 'Ga', 'Ti', 'GaAs', 'SiC', 'Cu', 'Ge',
     'Li', 'Ne', 'Na', 'Cl', 'Ar', 'Au', 'VO2', 'Sc', 'Fe', 'Nb', 'Ni', 'SiGe',
     'Sr', 'Zr', 'Ag', 'Ta', 'Pt', 'Hg', 'U', 'O2', 'H2O', 'Sn', 'Sb',
     'SiN', 'SiO', 'H', 'N', 'GaN', 'InP', 'InAs', 'GaP', 'AlP', 'He',
-    'BAs', 'BN', 'AlN', 'TiNiSn', 'AlGaAs', ])
+    'BAs', 'BN', 'AlN', 'TiNiSn', 'AlGaAs', }
 
-units_list = set(["m.", "m ", "mm", "um", "nm", "km", "cm", "W", "V", "K", "s ",
+UNITS = {"m.", "m ", "mm", "um", "nm", "km", "cm", "W", "V", "K", "s ",
     "s.", "ps", "us ", "Pa", "min", "h.", "h,", "h ", "Hz", "GHz", "THz", "MHz",
-    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', 'MPa', 'GPa'])
+    "g", 'mg', 'ml', 'nV', 'mV', 'mW', 'nW', 'MPa', 'GPa'}
 
-exceptions_list = set(['RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
+EXCEPTIONS = {'RESULTS', 'DISCUSSION', 'DISCUSSIONS','METHODS', 'JST',
     'INTRODUCTION', 'LIMMS', 'DNA', 'RNA', 'IIS', 'CREST', 'PRESTO', 'PNAS',
     'APL', 'ZT', 'LaTeX', 'MEMS', 'NEMS', 'AIP', 'AM', 'PM', 'AIDS', 'AC', 'DC',
     'CNRS', 'KAKENHI', 'APA', 'GaA', 'ErA', 'AlA', 'BA', 'BibTeX', 'APS', 'InA',
     'LED', 'OLED', 'ACS', 'PhD', 'MIT', 'NASA', 'HIV', 'RAM', 'CPU', 'LCD', 'LED',
-    'OLED', 'AFM', 'SEM', 'TEM', 'TDTR', 'COMSOL', 'APPOLO', 'ELMER', 'COVID'])
+    'OLED', 'AFM', 'SEM', 'TEM', 'TDTR', 'COMSOL', 'APPOLO', 'ELMER', 'COVID'}
 
-overused_intro_dictionary = {
+OVERUSED_INTRO = {
     'However': 'But or Yet',
     'Thus': 'Hence or Therefore',
     'Hence': 'Thus or Therefore',
@@ -47,7 +47,7 @@ overused_intro_dictionary = {
     'On the other hand': 'However, Yet, or But',
     }
 
-comma_after_list = [
+COMMA_AFTER = [
     'However ',
     'Therefore ',
     'Thus ',
@@ -76,7 +76,7 @@ comma_after_list = [
     'In the meantime ',
     ]
 
-british_dictionary = {
+BRITISH = {
     'vapour': 'vapor',
     'colour': 'color',
     'favourite': 'favorite',
@@ -156,7 +156,7 @@ british_dictionary = {
     'St ': 'St.',
     }
 
-very_dictionary = {
+VERY = {
     'very precise': 'precise, exact, unimpeachable, perfect, flawless',
     'very basic': 'rudimentary, primary, fundamental, simple',
     'very capable': 'efficient, proficient, skillful',
@@ -205,7 +205,7 @@ very_dictionary = {
     'very afraid': 'terrified',
     }
 
-bad_patterns_dictionary = {
+BAD_PATTERNS = {
 
     # Hype 
 
@@ -554,6 +554,7 @@ bad_patterns_dictionary = {
     'everyone of ': 'Correct "everyone of" as "every one of".',
     ' an other ': 'Correct "an other" as "another".',
     ' is comprised of ': 'Correct "is comprised of" as "comprises". The whole comprises its parts.',
+    ' are comprised of ': 'Correct "are comprised of" as "comprise". The whole comprises its parts.',
     ' onboard ': 'Correct "onboard" as "on-board".',
     ' cause and affect': 'Correct as "cause and affect" as "cause and effect".',
     'carefully chosen': 'The word "carefully" does not add much here. The act of choice already implies some consideration.',
@@ -568,6 +569,8 @@ bad_patterns_dictionary = {
     'low frequency phonon': 'Correct as "low-frequency".',
     'straight curve': 'Usually a line is either straight or curved. Consider replacing "straight curve" with "straight line".',
     'linear curve': 'Usually a linear dependence is not curved. Consider replacing "linear curve" with "line".',
+    'before hand': 'Beforehand is spelled as one word.',
+    'different than': 'Correct "different than" as "different from".',
 
     # Numbers next to words
 
@@ -661,6 +664,7 @@ bad_patterns_dictionary = {
     # Inappropriate language
 
     "it's": 'If you mean "it is", it is better just to write "it is". Otherwise, it might need to be corrected as "its", e.g. "material and its properties".',
+    "it`s": 'If you mean "it is", it is better just to write "it is". Otherwise, it might need to be corrected as "its", e.g. "material and its properties".',
     'kind of': 'Consider kind of replacing "kind of" with "rather" or kind of avoiding it completely.',
     'pretty much': 'Consider pretty much deleting "pretty much".',
     ' and so on.': 'Try to rewrite without "...and so on". It might be too informal and vague if other items in the list are unclear. Either list all important items or generalize the remaining, for example "Voyager flew past Mars, Jupiter, and other planets.',
@@ -749,7 +753,7 @@ bad_patterns_dictionary = {
 # Web Page: http://suspense.net/whitefish/cliche.htm
 # Email: suspense@suspense.net 
 
-cliche_list = set([
+CLICHES = set([
     "Hallmark",
     "paradigm shift",
     "At the end of the day",
@@ -1272,7 +1276,7 @@ cliche_list = set([
     "It takes him an hour to cook Minute Rice."
     ])
 
-redundant_dictionary = {
+REDUNDANT = {
     'PM in the afternoon': 'PM',
     'AM in the morning': 'AM',
     'necessary requirements': 'requirements',
@@ -1519,7 +1523,7 @@ redundant_dictionary = {
     'plan in advance': 'plan',
     }
 
-negatives_dictionary = {
+NEGATIVES = {
     'not able': 'unable',
     'not different': 'alike',
     'did not accept': 'rejected',
@@ -1544,17 +1548,17 @@ negatives_dictionary = {
     'not significant': 'negligible',
     }
 
-absolutes_dictionary = {
+ABSOLUTES = {
     ' never ': 'According to Craft of Scientific Writing: "Never is a frightening word because it invites the readers to think of exceptions". Consider alternatives: "rarely", "seldom", "remains unclear", "remains challenging".',
     'always': 'According to Craft of Scientific Writing: "Always is a frightening word because it invites the readers to think of exceptions. You should go in fear of absolutes".',
     }
 
-absolutes_exceptions = [
+ABSOLUTES_EXCEPTIONS = [
     ['almost never'],
     ['not always', 'almost always'],
     ]
 
-complex_words = {
+COMPLEX_WORDS = {
     'elucidate':'explain',
     'diminish': 'decrease',
     'establish': 'set',
@@ -1585,22 +1589,26 @@ complex_words = {
     'execute': 'do',
     'outstanding': 'great',
     'achievement': 'result',
+    'prevalent': 'dominant',
+    'tremendous': 'huge',
+    'infinitesimal': 'tiny',
+    'substantiate': 'verify',
     }
 
 
 def bad_patterns(line, index):
     '''Cross-check with the dictionary of known errors and suggest fixes'''
     mistakes = []
-    for word in bad_patterns_dictionary:
+    for word in BAD_PATTERNS:
         if word in line:
-            mistakes.append(f'Line {index + 1}. {bad_patterns_dictionary[word]}')
+            mistakes.append(f'Line {index + 1}. {BAD_PATTERNS[word]}')
     return mistakes
 
 
 def comma_after(line, index):
     '''Check for words that usually have comma after them'''
     mistakes = []
-    for word in comma_after_list:
+    for word in COMMA_AFTER:
         if word in line:
             mistakes.append(
                 f'Line {index + 1}. Might need a comma after "{word[:-1]}".')
@@ -1610,10 +1618,10 @@ def comma_after(line, index):
 def phrases_with_very(line, index):
     '''Check for patterns like "very ..." in the dictionary'''
     mistakes = []
-    for word in very_dictionary:
+    for word in VERY:
         if word in line:
             mistakes.append(
-                f'Line {index + 1}. Consider replacing "{word}" with words like "{very_dictionary[word]}" etc'
+                f'Line {index + 1}. Consider replacing "{word}" with words like "{VERY[word]}" etc'
             )
     return mistakes
 
@@ -1648,7 +1656,7 @@ def numbers_next_to_units(line, index):
     '''Check if units separated or not separated from numbers with a space'''
     mistakes = []
     for number in range(9):
-        for unit in units_list:
+        for unit in UNITS:
             if (f'{number}{unit} ' in line) or (f'{number}{unit}.' in line) or (f'{number}{unit},' in line):
                 mistakes.append(
                     f'Line {index + 1}. Put a space between the digit {number} and the unit {unit}'
@@ -1665,7 +1673,7 @@ def elements(text):
     mistakes = []
     entire_text = unite_valid_lines(text)
     found_elements = []
-    for element in elements_list:
+    for element in ELEMENTS:
         occurance = entire_text.count(" " + element + " ")
         if 0 < occurance < 5:
             found_elements.append(element)
@@ -1700,8 +1708,8 @@ def abbreviations(text):
     # Check how often each abbreviation occurs and comment if less than five
     found_abbreviations = []
     for unique_abbreviation in set(filtered_abbreviations):
-        if (unique_abbreviation not in elements_list) and (unique_abbreviation
-                not in exceptions_list) and (unique_abbreviation not in units_list):
+        if (unique_abbreviation not in ELEMENTS) and (unique_abbreviation
+                not in EXCEPTIONS) and (unique_abbreviation not in UNITS):
             occurance = filtered_abbreviations.count(unique_abbreviation)
             if 0 < occurance < 5:
                 found_abbreviations.append(unique_abbreviation)
@@ -1738,16 +1746,16 @@ def british_spelling(line, index, english):
     '''Check if spelling of some words is american/british'''
     mistakes = []
     if english == 'american':
-        for word in british_dictionary:
+        for word in BRITISH:
             if word in line:
                 mistakes.append(
-                    f'Line {index + 1}. In American English, word "{word}" is spelled as "{british_dictionary[word]}".'
+                    f'Line {index + 1}. In American English, word "{word}" is spelled as "{BRITISH[word]}".'
                 )
     if english == 'british':
-        for word in british_dictionary:
-            if british_dictionary[word] in line:
+        for word in BRITISH:
+            if BRITISH[word] in line:
                 mistakes.append(
-                    f'Line {index + 1}. In British English, word "{british_dictionary[word]}" is spelled as "{word}".'
+                    f'Line {index + 1}. In British English, word "{BRITISH[word]}" is spelled as "{word}".'
                 )
     return mistakes
 
@@ -1888,16 +1896,16 @@ def intro_patterns(text):
     '''Check if some introduction words occur too often times'''
     mistakes = []
     entire_text = unite_valid_lines(text)
-    for word in overused_intro_dictionary:
+    for word in OVERUSED_INTRO:
         occurance = entire_text.count(word)
         occurance_percentage = occurance / len(entire_text.split(" "))
         if (0.0012 < occurance_percentage < 0.002) and (occurance > 1):
             mistakes.append(
-                f'Sentences often start with "{word}". Try alternatives like "{overused_intro_dictionary[word]}".'
+                f'Sentences often start with "{word}". Try alternatives like "{OVERUSED_INTRO[word]}".'
             )
         if occurance_percentage > 0.002 and occurance > 1:
             mistakes.append(
-                f'Sentences start with "{word}" too often. Try alternatives like "{overused_intro_dictionary[word]}".'
+                f'Sentences start with "{word}" too often. Try alternatives like "{OVERUSED_INTRO[word]}".'
             )
     return mistakes
 
@@ -1924,10 +1932,10 @@ def unite_valid_lines(text):
 def redundancy(line, index):
     '''Check for the redundancies'''
     mistakes = []
-    for word in redundant_dictionary:
+    for word in REDUNDANT:
         if word in line:
             mistakes.append(
-                f'Line {index + 1}. Replace likely redundant "{word}" with just "{redundant_dictionary[word]}".'
+                f'Line {index + 1}. Replace likely redundant "{word}" with just "{REDUNDANT[word]}".'
             )
     return mistakes
 
@@ -1935,10 +1943,10 @@ def redundancy(line, index):
 def negatives(line, index):
     '''Check for the negatives'''
     mistakes = []
-    for word in negatives_dictionary:
+    for word in NEGATIVES:
         if word in line:
             mistakes.append(
-                f'Line {index + 1}. Replace negative "{word}" with a more positive "{negatives_dictionary[word]}".'
+                f'Line {index + 1}. Replace negative "{word}" with a more positive "{NEGATIVES[word]}".'
             )
     return mistakes
 
@@ -2001,12 +2009,12 @@ def it_is_latex_text(text):
 def absolutes(line, index):
     '''Check for words like 'always' or 'never' but except exceptions'''
     mistakes = []
-    for num, word in enumerate(absolutes_dictionary):
+    for num, word in enumerate(ABSOLUTES):
         not_exception = [
-            exception not in line for exception in absolutes_exceptions[num]
+            exception not in line for exception in ABSOLUTES_EXCEPTIONS[num]
         ]
         if (word in line) and all(not_exception):
-            mistakes.append(f'Line {index + 1}. {absolutes_dictionary[word]}')
+            mistakes.append(f'Line {index + 1}. {ABSOLUTES[word]}')
     return mistakes
 
 
@@ -2089,7 +2097,7 @@ def extreme_quantities(line, index):
 def cliches(line, index):
     '''Check for cliches'''
     mistakes = []
-    for phrase in cliche_list:
+    for phrase in CLICHES:
         if phrase in line:
             mistakes.append(
                 f'Line {index + 1}. The phrase "{phrase}" is considered a cliché and should be avoided.'
@@ -2113,7 +2121,7 @@ def difficult_words(text):
     mistakes = []
     found_words = []
     entire_text = unite_valid_lines(text)
-    for word in complex_words:
+    for word in COMPLEX_WORDS:
         occurance = entire_text.count(word)
         if (occurance > 0):
             found_words.append(word)
@@ -2121,7 +2129,7 @@ def difficult_words(text):
         synonyms = ''
         errors = ''
         for word in found_words:
-            synonyms += '"' + complex_words[word] + '", '
+            synonyms += '"' + COMPLEX_WORDS[word] + '", '
             errors += '"' + word + '", '
         mistakes.append(
                 f'You used some difficult words like {errors[:-2]}. Try using simple synonyms, like {synonyms[:-2]} because most readers of scientific papers are not native English speakers.'
@@ -2173,7 +2181,7 @@ def main(text, english='american'):
     return results
 
 
-# Read AngryReviewerEnglish option from vim
+# Read AngryReviewerEnglish option from vim:
 try:
     english_opt = vim.vars["AngryReviewerEnglish"]
     if type(english_opt) == bytes:
@@ -2187,11 +2195,11 @@ except ValueError:
     print("[WARNING] g:AngryReviewerEnglish must be 'american' or 'british', (using american english)")
     english_opt = 'american'
 
-# Read the buffer and send it for processing
+# Read the buffer and send it for processing:
 text = list(vim.current.buffer)
 results = main(text, english=english_opt)
 
-# Open results in a quickfix-window
+# Open results in a quickfix-window:
 vim.command('call setqflist([], "r")')  # clear qflist
 for result in results:
     lnum = '1'
