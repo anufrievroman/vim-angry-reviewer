@@ -554,12 +554,12 @@ BAD_PATTERNS = {
     'traveling as long': 'Verify that you do not mean "traveling as far" instead of "traveling as long".',
     'travelled as long': 'Verify that you do not mean "travelled as far" instead of "traveled as long".',
     'travelling as long': 'Verify that you do not mean "travelling as far" instead of "traveling as long".',
-    '$\hslash$ is the reduced Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
-    '$\hslash$ is the Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
-    '$\hslash$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
-    '$\hbar$ is the reduced Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
-    '$\hbar$ is the Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
-    '$\hbar$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hslash$ is the reduced Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hslash$ is the Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hslash$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hbar$ is the reduced Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hbar$ is the Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
+    r'$\hbar$ is Planck': 'It is safe to assume that all physicists know the meaning of h-bar.',
     'irregardless': 'Replace "irregardless" with "regardless".',
     'Monte-Carlo': 'Spell "Monte-Carlo" without a hyphen, i.e. "Monte Carlo".',
     'have to have': 'Replace "have to have" with "must have" or "should have".',
@@ -764,14 +764,14 @@ BAD_PATTERNS = {
 
     # Latex best practices
 
-    '$\mu$m': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}m" for better looking letter mu.',
-    '$\mu$s': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}s" for better looking letter mu.',
-    '$\mu$g': 'You may replace LaTeX expression "$\mu$m" with "{\\textmu}g" for better looking letter mu.',
-    '$\mu$TDTR': 'You may replace LaTeX expression "$\mu$TDTR" with "{\\textmu}TDTR" for better looking letter mu.',
-    '\hslash': 'If by "\hslash" you mean the reduced Planck constant, use "\hbar".',
-    '+/-': 'If you are in LaTeX, use "\pm" instead of "+/-". Otherwise, find proper plus-minus symbol.',
-    ' $^\circ$C': 'Degrees Celsius should not be separated from the number with a space',
-    ' $^\circ$F': 'Degrees Fahrenheit should not be separated from the number with a space.',
+    r'$\mu$m': r'You may replace LaTeX expression "$\mu$m" with "{\\textmu}m" for better looking letter mu.',
+    r'$\mu$s': r'You may replace LaTeX expression "$\mu$m" with "{\\textmu}s" for better looking letter mu.',
+    r'$\mu$g': r'You may replace LaTeX expression "$\mu$m" with "{\\textmu}g" for better looking letter mu.',
+    r'$\mu$TDTR': r'You may replace LaTeX expression "$\mu$TDTR" with "{\\textmu}TDTR" for better looking letter mu.',
+    r'\hslash': r'If by "\hslash" you mean the reduced Planck constant, use "\hbar".',
+    '+/-': r'If you are in LaTeX, use "\pm" instead of "+/-". Otherwise, find proper plus-minus symbol.',
+    r' $^\circ$C': 'Degrees Celsius should not be separated from the number with a space',
+    r' $^\circ$F': 'Degrees Fahrenheit should not be separated from the number with a space.',
     }
 
 # This list of cliches was taken from suspense.net:
@@ -1685,7 +1685,7 @@ def numbers_next_to_units(line, index):
                 mistakes.append(
                     f'Line {index + 1}. Put a space between the digit {number} and the unit {unit}'
                 )
-        if (str(number) + ' %' in line) or (str(number) + ' \%' in line):
+        if (str(number) + ' %' in line) or (str(number) + r' \%' in line):
             mistakes.append(
                 f'Line {index + 1}. Percent sign "%" should follow numberals without a space, i.e. {number}%'
             )
@@ -2005,7 +2005,7 @@ def latex_best_practices(text):
             useful_lines += 1
     if dots_in_line / useful_lines > 1.2:
         mistakes.append(
-            f'In LaTeX, it is considered a best practice to start each sentence from a new line.'
+            'In LaTeX, it is considered a best practice to start each sentence from a new line.'
         )
     return mistakes
 
@@ -2231,7 +2231,7 @@ for result in results:
 
     result_has_lnum = re.search('Line .', result)
     if result_has_lnum:
-        lnum_search = re.search('\d+', result)
+        lnum_search = re.search(r'\d+', result)
         lnum = lnum_search[0]
         qfitem = result[lnum_search.end()+2:]  # Clip text following Line xx.\s
 
